@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 //                val repository: MainRepository = AppModule.provideMainRepository()
                 val foodVM: FoodViewModel = viewModel()
+                val repository: MainRepository = AppModule.provideMainRepository()
 
                 Scaffold(
                     bottomBar = {
@@ -55,7 +56,7 @@ class MainActivity : ComponentActivity() {
                             MainScreen(foodVM)
                         }
                         composable(route = Screen.Stats.route) {
-                            StatsScreen(foodVM)
+                            StatsScreen(foodVM, repository)
                         }
                         composable(route = Screen.Settings.route) {
                             SettingsScreen()

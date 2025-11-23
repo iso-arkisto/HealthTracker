@@ -16,13 +16,13 @@ class FoodViewModel @Inject constructor(
     )
     var waterProgress: Float by mutableFloatStateOf(0f)
 
-    fun addFood(name: String, amount: Int, timestamp: Long = System.currentTimeMillis()) {
+    fun addFood(id: Int, amount: Int, timestamp: Long = System.currentTimeMillis()) {
         val current = day
         day = current.copy(
             waterAmount = current.waterAmount + amount,
             logs = current.logs + FoodLog(
                 amount = amount,
-                name = name,
+                foodId = id,
                 timestamp = timestamp
             )
         )

@@ -22,7 +22,7 @@ data class FoodDay(
 
 data class FoodLog(
     val amount: Int,
-    val name: String,
+    val foodId: Int,
     val timestamp: Long = System.currentTimeMillis(),
 )
 

@@ -44,7 +44,7 @@ fun MainScreen(foodVM: FoodViewModel) {
         Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
-                foodVM.addFood("water",200)
+                foodVM.addFood(1,200)
             }
         ) {
             Text(

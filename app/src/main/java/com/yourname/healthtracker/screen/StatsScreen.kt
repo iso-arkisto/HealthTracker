@@ -11,12 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yourname.healthtracker.data.FoodViewModel
+import com.yourname.healthtracker.data.MainRepository
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 @Composable
-fun StatsScreen(foodViewModel: FoodViewModel) {
+fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -29,7 +30,7 @@ fun StatsScreen(foodViewModel: FoodViewModel) {
             items(foodViewModel.day.logs) {
                 log ->
                 Text(
-                    text = "+${log.amount} ml of ${log.name} (${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
+                    text = "+${log.amount} ml of ${repository.findFoodById(log.foodId)?.name} (${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
                         Date(log.timestamp)
                     )})"
                 )
