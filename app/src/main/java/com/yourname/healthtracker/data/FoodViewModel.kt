@@ -8,22 +8,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class WaterViewModel @Inject constructor(
+class FoodViewModel @Inject constructor(
     private val repository: MainRepository
 ): ViewModel() {
-    var waterDay: WaterDay = WaterDay(
+    var day = FoodDay(
         date = repository.getCurrentDate(),
-        goal = 1000,
-        amount = 0
     )
     var waterProgress: Float by mutableFloatStateOf(0f)
 
-    fun addWater(amountToAdd: Int) {
-        val current = waterDay
-        waterDay = current.copy(
-            amount = current.amount + amountToAdd
+    fun addFood(name: String, amount: Int, timestamp: Long = System.currentTimeMillis()) {
+        val current = day
+        day = current.copy(
+            waterAmount = current.waterAmount + amount,
+            logs = current.logs + FoodLog(
+                amount = amount,
+                name = name,
+                timestamp = timestamp
+            )
         )
-        waterProgress = (waterDay.amount.toFloat()/waterDay.goal)
+        waterProgress = (day.waterAmount.toFloat()/day.waterGoal)
     }
 
 }

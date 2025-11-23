@@ -16,9 +16,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import com.yourname.healthtracker.data.FoodViewModel
 import com.yourname.healthtracker.data.MainRepository
 import com.yourname.healthtracker.data.MainRepositoryImpl
-import com.yourname.healthtracker.data.WaterViewModel
 import com.yourname.healthtracker.di.AppModule
 import com.yourname.healthtracker.screen.MainScreen
 import com.yourname.healthtracker.screen.SettingsScreen
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
             HealthTrackerTheme {
                 val navController = rememberNavController()
 //                val repository: MainRepository = AppModule.provideMainRepository()
-//                val waterViewModel: WaterViewModel = viewModel()
+                val foodVM: FoodViewModel = viewModel()
 
                 Scaffold(
                     bottomBar = {
@@ -52,10 +52,10 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(route = Screen.Home.route) {
-                            MainScreen()
+                            MainScreen(foodVM)
                         }
                         composable(route = Screen.Stats.route) {
-                            StatsScreen()
+                            StatsScreen(foodVM)
                         }
                         composable(route = Screen.Settings.route) {
                             SettingsScreen()

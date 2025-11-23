@@ -18,13 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.yourname.healthtracker.data.FoodViewModel
 import com.yourname.healthtracker.data.MainRepository
-import com.yourname.healthtracker.data.WaterViewModel
 import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
 import com.yourname.healthtracker.ui.theme.WaterColor
 
 @Composable
-fun MainScreen(waterVM: WaterViewModel = hiltViewModel()) {
+fun MainScreen(foodVM: FoodViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,14 +37,14 @@ fun MainScreen(waterVM: WaterViewModel = hiltViewModel()) {
         ) {
             DeterminateProgressWithText(
                 title = "Вода💧",
-                progress = waterVM.waterProgress,
+                progress = foodVM.waterProgress,
                 color = WaterColor
             )
         }
         Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
-                waterVM.addWater(200)
+                foodVM.addFood("water",200)
             }
         ) {
             Text(
