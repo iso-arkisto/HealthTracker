@@ -66,4 +66,6 @@
     <string name="save">Сохранить</string>
     <string name="save_success">Успешно сохранено</string>
     <string name="error_occurred">Произошла ошибка</string>
+    <string name="not_found">Не найдено</string>
+    <string name="calories">Калории</string>
 </resources>

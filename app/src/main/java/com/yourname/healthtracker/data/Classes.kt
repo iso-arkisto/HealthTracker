@@ -10,6 +10,7 @@ data class FoodDay(
     val date: String,
 
     var waterGoal: Int = 2500,
+    var caloriesGoal: Int = 2200,
     var waterAmount: Int = 0,
 
     var logs: List<FoodLog> = emptyList<FoodLog>(),

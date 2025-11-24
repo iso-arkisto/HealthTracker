@@ -65,4 +65,6 @@
     <string name="save">Save</string>
     <string name="save_success">Saved successfully</string>
     <string name="error_occurred">An error has occurred</string>
+    <string name="not_found">Not found</string>
+    <string name="calories">Calories</string>
 </resources>

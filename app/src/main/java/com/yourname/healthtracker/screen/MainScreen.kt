@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
@@ -31,11 +33,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yourname.healthtracker.R
+import com.yourname.healthtracker.data.FoodType
 import com.yourname.healthtracker.data.FoodViewModel
 import com.yourname.healthtracker.data.MainRepository
 import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
+import com.yourname.healthtracker.ui.theme.FoodColor
 import com.yourname.healthtracker.ui.theme.WaterColor
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
 
@@ -45,6 +50,8 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
     var chosenDrink by remember {
         mutableIntStateOf(1)
     }
+
+    val menu1options = repository.getAllFood(FoodType.DRINK)
 
     Column(
         modifier = Modifier
@@ -61,51 +68,52 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                 progress = foodVM.waterProgress,
                 color = WaterColor
             )
+            Spacer(modifier = Modifier.width(60.dp))
+            DeterminateProgressWithText(
+                title = stringResource(R.string.calories),
+                progress = foodVM.caloriesProgress,
+                color = FoodColor
+            )
         }
         Spacer(modifier = Modifier.height(30.dp))
-//        ExposedDropdownMenuBox(
-//            expanded = isExpanded1,
-//            onExpandedChange = { isExpanded1 = it }
-//        ) {
-//            TextField(
-//                value = apivm.appTheme.value,
-//                onValueChange = {},
-//                readOnly = true,
-//                trailingIcon = {
-//                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded1)
-//                },
-//                colors = ExposedDropdownMenuDefaults.textFieldColors(),
-//                modifier = Modifier.menuAnchor()
-//            )
-//
-//            ExposedDropdownMenu(
-//                expanded = isExpanded1,
-//                onDismissRequest = { isExpanded1 = false }
-//            ) {
-//                menu1options.forEach {
-//                        opt ->
-//                    DropdownMenuItem(
-//                        text = { Text(text = opt) },
-//                        onClick = {
-//                            apivm.appTheme.value = opt
-//                            isExpanded1 = false
-////                                        Log.d("cool_log",viewModel.appTheme.value)
-//                            when(apivm.appTheme.value) {
-//                                "Светлая" -> AppCompatDelegate.setDefaultNightMode(
-//                                    AppCompatDelegate.MODE_NIGHT_NO
-//                                )
-//                                "Тёмная" -> AppCompatDelegate.setDefaultNightMode(
-//                                    AppCompatDelegate.MODE_NIGHT_YES
-//                                )
-//                            }
-//                        }
-//                    )
-//                }
-//            }
-//        }
+        ExposedDropdownMenuBox(
+            expanded = isExpanded1,
+            onExpandedChange = { isExpanded1 = it }
+        ) {
+            TextField(
+                value = if(repository.findFoodById(chosenDrink) != null) stringResource(repository.findFoodById(chosenDrink)!!.name) else stringResource(R.string.not_found),
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded1)
+                },
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                modifier = Modifier.menuAnchor()
+            )
+
+            ExposedDropdownMenu(
+                expanded = isExpanded1,
+                onDismissRequest = { isExpanded1 = false }
+            ) {
+                menu1options.forEach {
+                        opt ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(stringResource(opt.name))
+                        },
+                        onClick = {
+                            chosenDrink = opt.id
+                            isExpanded1 = false
+                        }
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+
         Button(
             onClick = {
-                foodVM.addFood(1,200)
+                foodVM.addFood(chosenDrink,200)
             }
         ) {
             Text(

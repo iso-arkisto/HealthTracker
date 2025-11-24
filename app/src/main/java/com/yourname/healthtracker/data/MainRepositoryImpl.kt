@@ -215,4 +215,10 @@ class MainRepositoryImpl @Inject constructor(): MainRepository {
     override fun findFoodById(id: Int): Food? {
         return foodList.find { food -> food.id == id }
     }
+
+    override fun getAllFood(type: FoodType): List<Food> {
+        return foodList.filter {
+            it.type == type
+        }
+    }
 }
