@@ -67,4 +67,7 @@
     <string name="error_occurred">An error has occurred</string>
     <string name="not_found">Not found</string>
     <string name="calories">Calories</string>
+    <string name="milliliters">ml</string>
+    <string name="grams">g</string>
+    <string name="calories_goal">Calorie per day goal</string>
 </resources>

@@ -23,28 +23,43 @@ class FoodViewModel @Inject constructor(
 
         if(food == null) { return }
 
-        day = current.copy(
-            waterAmount = current.waterAmount + amount,
-            logs = current.logs + FoodLog(
-                amount = amount,
-                foodId = id,
-                timestamp = timestamp
-            ),
-            calories = current.calories+(food.calories*(amount/100)),
-            protein = current.protein+(food.protein*(amount/100)),
-            fat = current.fat+(food.fat*(amount/100)),
-            carbs = current.carbs+(food.carbs*(amount/100))
-        )
+        if(food.type == FoodType.FOOD) {
+            day = current.copy(
+                logs = current.logs + FoodLog(
+                    amount = amount,
+                    foodId = id,
+                    timestamp = timestamp
+                ),
+                calories = current.calories+(food.calories*(amount/100)),
+                protein = current.protein+(food.protein*(amount/100)),
+                fat = current.fat+(food.fat*(amount/100)),
+                carbs = current.carbs+(food.carbs*(amount/100))
+            )
+        } else {
+            day = current.copy(
+                waterAmount = current.waterAmount + amount,
+                logs = current.logs + FoodLog(
+                    amount = amount,
+                    foodId = id,
+                    timestamp = timestamp
+                ),
+                calories = current.calories+(food.calories*(amount/100)),
+                protein = current.protein+(food.protein*(amount/100)),
+                fat = current.fat+(food.fat*(amount/100)),
+                carbs = current.carbs+(food.carbs*(amount/100))
+            )
+        }
 
         waterProgress = (day.waterAmount.toFloat()/day.waterGoal)
         caloriesProgress = (day.calories.toFloat()/day.caloriesGoal)
 
     }
 
-    fun updateSettings(waterGoal: Int) {
+    fun updateSettings(waterGoal: Int, caloriesGoal: Int) {
         val current = day
         day = current.copy(
-            waterGoal = waterGoal
+            waterGoal = waterGoal,
+            caloriesGoal = caloriesGoal
         )
 
         waterProgress = (day.waterAmount.toFloat()/day.waterGoal)

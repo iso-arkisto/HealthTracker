@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.yourname.healthtracker.R
 import com.yourname.healthtracker.data.Food
+import com.yourname.healthtracker.data.FoodType
 import com.yourname.healthtracker.data.FoodViewModel
 import com.yourname.healthtracker.data.MainRepository
 import java.text.SimpleDateFormat
@@ -29,19 +31,22 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            items(foodViewModel.day.logs) {
+            items(foodViewModel.day.logs.sortedByDescending { it.timestamp }) {
                 log ->
                 val food: Food? = repository.findFoodById(log.foodId)
                 var name: String
+                var type: FoodType
 
                 if(food != null) {
                     name = stringResource(food.name)
+                    type = food.type
                 } else {
                     name = "???"
+                    type = FoodType.DRINK
                 }
 
                 Text(
-                    text = "+${log.amount} ml of $name (${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
+                    text = "+${log.amount} ${if(type== FoodType.FOOD) stringResource(R.string.grams) else stringResource(R.string.milliliters) } of $name (${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
                         Date(log.timestamp)
                     )})"
                 )

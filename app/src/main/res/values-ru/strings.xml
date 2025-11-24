@@ -68,4 +68,7 @@
     <string name="error_occurred">Произошла ошибка</string>
     <string name="not_found">Не найдено</string>
     <string name="calories">Калории</string>
+    <string name="milliliters">мл</string>
+    <string name="grams">г</string>
+    <string name="calories_goal">Цель по калориям в день</string>
 </resources>

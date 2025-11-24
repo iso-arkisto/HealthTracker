@@ -30,6 +30,7 @@ import com.yourname.healthtracker.data.FoodViewModel
 fun SettingsScreen(foodVM: FoodViewModel) {
 
     var waterGoal by remember { mutableStateOf("2500") }
+    var caloriesGoal by remember { mutableStateOf("2200") }
 
     var errorState by remember { mutableStateOf("") }
     var saveSuccess by remember { mutableStateOf(false) }
@@ -39,6 +40,7 @@ fun SettingsScreen(foodVM: FoodViewModel) {
 
     LaunchedEffect(Unit) {
         waterGoal = foodVM.day.waterGoal.toString()
+        caloriesGoal = foodVM.day.caloriesGoal.toString()
     }
 
     Column(
@@ -53,6 +55,13 @@ fun SettingsScreen(foodVM: FoodViewModel) {
                 },
                 label = { Text(stringResource(R.string.water_goal)) },
             )
+        TextField(
+            value = caloriesGoal,
+            onValueChange = {
+                caloriesGoal = it
+            },
+            label = { Text(stringResource(R.string.calories_goal)) },
+        )
         Spacer(modifier = Modifier.height(20.dp))
         if(errorState.isNotEmpty()) {
             Text(
@@ -67,8 +76,8 @@ fun SettingsScreen(foodVM: FoodViewModel) {
                 saveSuccess = false
                 errorState = errorMessage
 
-                if(waterGoal.toIntOrNull() != null) {
-                    if(waterGoal.toInt() > 100 && waterGoal.toInt() < 10000) {
+                if(waterGoal.toIntOrNull() != null && caloriesGoal.toIntOrNull() != null) {
+                    if(waterGoal.toInt() > 100 && waterGoal.toInt() < 10000 && caloriesGoal.toInt() > 10 && caloriesGoal.toInt() < 25000) {
                         saveSuccess = true
                         errorState = saveSuccessMessage
                     }
@@ -76,10 +85,13 @@ fun SettingsScreen(foodVM: FoodViewModel) {
 
                 if(saveSuccess) {
                     foodVM.updateSettings(
-                        waterGoal.toInt()
+                        waterGoal.toInt(),
+                        caloriesGoal.toInt()
                     )
                 } else {
                     waterGoal = foodVM.day.waterGoal.toString()
+                    caloriesGoal = foodVM.day.caloriesGoal.toString()
+
                 }
             }
         ) {
