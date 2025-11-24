@@ -53,13 +53,13 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(route = Screen.Home.route) {
-                            MainScreen(foodVM)
+                            MainScreen(foodVM, repository)
                         }
                         composable(route = Screen.Stats.route) {
                             StatsScreen(foodVM, repository)
                         }
                         composable(route = Screen.Settings.route) {
-                            SettingsScreen()
+                            SettingsScreen(foodVM)
                         }
                     }
                 }

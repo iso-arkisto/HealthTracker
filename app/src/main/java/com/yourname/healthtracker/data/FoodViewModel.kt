@@ -25,7 +25,19 @@ class FoodViewModel @Inject constructor(
                 foodId = id,
                 timestamp = timestamp
             )
+
+
         )
+
+        waterProgress = (day.waterAmount.toFloat()/day.waterGoal)
+    }
+
+    fun updateSettings(waterGoal: Int) {
+        val current = day
+        day = current.copy(
+            waterGoal = waterGoal
+        )
+
         waterProgress = (day.waterAmount.toFloat()/day.waterGoal)
     }
 

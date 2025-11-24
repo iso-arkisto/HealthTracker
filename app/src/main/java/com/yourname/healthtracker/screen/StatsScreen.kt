@@ -8,8 +8,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.yourname.healthtracker.data.Food
 import com.yourname.healthtracker.data.FoodViewModel
 import com.yourname.healthtracker.data.MainRepository
 import java.text.SimpleDateFormat
@@ -29,8 +31,17 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
         ) {
             items(foodViewModel.day.logs) {
                 log ->
+                val food: Food? = repository.findFoodById(log.foodId)
+                var name: String
+
+                if(food != null) {
+                    name = stringResource(food.name)
+                } else {
+                    name = "???"
+                }
+
                 Text(
-                    text = "+${log.amount} ml of ${repository.findFoodById(log.foodId)?.name} (${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
+                    text = "+${log.amount} ml of $name (${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
                         Date(log.timestamp)
                     )})"
                 )

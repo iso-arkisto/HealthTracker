@@ -28,11 +28,21 @@ data class FoodLog(
 
 data class Food(
     val id: Int,
-    val name: String,
-    val type: String,
+    val name: Int,
+    val type: FoodType,
     val calories: Double,
     val protein: Double,
-    val carbs: Double,
     val fat: Double,
+    val carbs: Double,
     val isCustom: Boolean = false,
 )
+
+enum class FoodType {
+    FOOD, DRINK
+}
+
+//data class SavedSets(
+//    var waterGoal: String,
+//    var errorState: String,
+//    var success: Boolean
+//)
