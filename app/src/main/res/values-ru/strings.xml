@@ -71,4 +71,12 @@
     <string name="milliliters">мл</string>
     <string name="grams">г</string>
     <string name="calories_goal">Цель по калориям в день</string>
+    <string name="food">Еда</string>
+    <string name="drinks">Напитки</string>
+    <string name="how_food">Сколько еды вы съели? (граммы)</string>
+    <string name="add">Добавить</string>
+    <string name="protein">Белки</string>
+    <string name="fats">Жиры</string>
+    <string name="carbs">Углеводы</string>
+    <string name="how_drink">Сколько напитка вы выпили? (миллилитры)</string>
 </resources>

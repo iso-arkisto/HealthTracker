@@ -2,6 +2,7 @@ package com.yourname.healthtracker.data
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +17,10 @@ class FoodViewModel @Inject constructor(
     )
     var waterProgress: Float by mutableFloatStateOf(0f)
     var caloriesProgress: Float by mutableFloatStateOf(0f)
+    var waterAddValue: Int by mutableIntStateOf(230)
+    var foodAddValue: Int by mutableIntStateOf(100)
+    var drinkAddValue: Int by mutableIntStateOf(230)
+
 
     fun addFood(id: Int, amount: Int, timestamp: Long = System.currentTimeMillis()) {
         val current = day

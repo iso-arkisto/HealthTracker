@@ -70,4 +70,12 @@
     <string name="milliliters">ml</string>
     <string name="grams">g</string>
     <string name="calories_goal">Calorie per day goal</string>
+    <string name="food">Food</string>
+    <string name="drinks">Drinks</string>
+    <string name="how_food">How much food did you eat? (grams)</string>
+    <string name="add">Add</string>
+    <string name="protein">Protein</string>
+    <string name="fats">Fats</string>
+    <string name="carbs">Carbs</string>
+    <string name="how_drink">How much drink did you drink? (milliliters)</string>
 </resources>

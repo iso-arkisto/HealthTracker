@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -38,6 +40,8 @@ import com.yourname.healthtracker.data.FoodType
 import com.yourname.healthtracker.data.FoodViewModel
 import com.yourname.healthtracker.data.MainRepository
 import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
+import com.yourname.healthtracker.ui.components.MenuTab
+import com.yourname.healthtracker.ui.components.NutritionCard
 import com.yourname.healthtracker.ui.theme.FoodColor
 import com.yourname.healthtracker.ui.theme.WaterColor
 
@@ -61,6 +65,11 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
 
     val menu1options = repository.getAllFood(FoodType.DRINK).sortedBy { it.name }
     val menu2options = repository.getAllFood(FoodType.FOOD).sortedBy { it.name }
+    val menu3options = listOf(R.string.food,R.string.drinks)
+
+    var chosenTab by remember {
+        mutableStateOf("")
+    }
 
     Column(
         modifier = Modifier
@@ -77,71 +86,21 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                DeterminateProgressWithText(
-                    title = stringResource(R.string.water),
-                    progress = foodVM.waterProgress,
-                    color = WaterColor
-                )
-                Spacer(modifier = Modifier.height(30.dp))
-                ExposedDropdownMenuBox(
-                    expanded = isExpanded1,
-                    onExpandedChange = { isExpanded1 = it }
-                ) {
-                    TextField(
-                        value = if(repository.findFoodById(chosenDrink) != null) stringResource(repository.findFoodById(chosenDrink)!!.name) else stringResource(R.string.not_found),
-                        onValueChange = {},
-                        readOnly = true,
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded1)
-                        },
-                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                        modifier = Modifier.menuAnchor()
-                    )
 
-                    ExposedDropdownMenu(
-                        expanded = isExpanded1,
-                        onDismissRequest = { isExpanded1 = false }
-                    ) {
-                        menu1options.forEach {
-                                opt ->
-                            DropdownMenuItem(
-                                text = {
-                                    Text(stringResource(opt.name))
-                                },
-                                onClick = {
-                                    chosenDrink = opt.id
-                                    isExpanded1 = false
-                                }
-                            )
+                if(chosenTab == "") {
+                    MenuTab(stringResource(R.string.food),
+                        onClick = {
+                            chosenTab = "food"
                         }
-                    }
-                }
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Button(
-                    onClick = {
-                        foodVM.addFood(chosenDrink,200)
-                    }
-                ) {
-                    Text(
-                        text = "+200 ${stringResource(R.string.milliliters)}"
                     )
-                }
-            }
-            Spacer(modifier = Modifier.height(30.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-
-            ) {
-                DeterminateProgressWithText(
-                    title = stringResource(R.string.calories),
-                    progress = foodVM.caloriesProgress,
-                    color = FoodColor
-                )
-                Spacer(modifier = Modifier.height(30.dp))
-                ExposedDropdownMenuBox(
+                    MenuTab(stringResource(R.string.drinks),
+                        onClick = {
+                            chosenTab = "drinks"
+                        }
+                    )
+                } else {
+                    if(chosenTab == "food") {
+                        ExposedDropdownMenuBox(
                     expanded = isExpanded2,
                     onExpandedChange = { isExpanded2 = it }
                 ) {
@@ -175,16 +134,116 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
-
-                Button(
-                    onClick = {
-                        foodVM.addFood(chosenFood,200)
-                    }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = "+200 ${stringResource(R.string.grams)}"
+
+                    OutlinedTextField(
+                        value = foodVM.foodAddValue.toString(),
+                        onValueChange = {
+                            if(it.toIntOrNull() != null) {
+                                if(it.toInt() > 0 && it.toInt() < 1000000) {
+                                    foodVM.foodAddValue = it.toInt()
+                                }
+                            }
+                        },
+                        label = { Text(stringResource(R.string.how_food)) },
+                        modifier = Modifier.width(200.dp)
                     )
+
                 }
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Button(
+                            onClick = {
+                                foodVM.addFood(chosenFood,foodVM.foodAddValue)
+                            },
+                            modifier = Modifier
+                                .padding(end = 10.dp, top = 10.dp)
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = stringResource(R.string.add)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
+                        NutritionCard(repository.findFoodById(chosenFood)!!,foodVM.foodAddValue)
+                    } else if(chosenTab == "drinks") {
+                        ExposedDropdownMenuBox(
+                            expanded = isExpanded1,
+                            onExpandedChange = { isExpanded1 = it }
+                        ) {
+                            TextField(
+                                value = if(repository.findFoodById(chosenDrink) != null) stringResource(repository.findFoodById(chosenDrink)!!.name) else stringResource(R.string.not_found),
+                                onValueChange = {},
+                                readOnly = true,
+                                trailingIcon = {
+                                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded1)
+                                },
+                                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                                modifier = Modifier.menuAnchor()
+                            )
+
+                            ExposedDropdownMenu(
+                                expanded = isExpanded1,
+                                onDismissRequest = { isExpanded1 = false }
+                            ) {
+                                menu1options.forEach {
+                                        opt ->
+                                    DropdownMenuItem(
+                                        text = {
+                                            Text(stringResource(opt.name))
+                                        },
+                                        onClick = {
+                                            chosenDrink = opt.id
+                                            isExpanded1 = false
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(30.dp))
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+
+                            OutlinedTextField(
+                                value = foodVM.drinkAddValue.toString(),
+                                onValueChange = {
+                                    if(it.toIntOrNull() != null) {
+                                        if(it.toInt() > 0 && it.toInt() < 10000) {
+                                            foodVM.drinkAddValue = it.toInt()
+                                        }
+                                    }
+                                },
+                                label = { Text(stringResource(R.string.how_drink)) },
+                                modifier = Modifier.width(200.dp)
+                            )
+
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Button(
+                            onClick = {
+                                foodVM.addFood(chosenDrink,foodVM.drinkAddValue)
+                            },
+                            modifier = Modifier
+                                .padding(end = 10.dp, top = 10.dp)
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = stringResource(R.string.add)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
+                        NutritionCard(repository.findFoodById(chosenDrink)!!,foodVM.drinkAddValue)
+
+
+                    }
+                }
+
             }
 //        }
 

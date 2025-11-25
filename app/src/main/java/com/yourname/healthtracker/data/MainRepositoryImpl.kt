@@ -124,8 +124,8 @@ class MainRepositoryImpl @Inject constructor(): MainRepository {
 //    Food(101, R.string.peas, FoodType.FOOD, 81.0, 5.4, 0.4, 14.5),
 //
 //    // 🍎 Фрукты и ягоды
-//    Food(102, R.string.apple, FoodType.FOOD, 52.0, 0.3, 0.2, 14.0),
-//    Food(103, R.string.banana, FoodType.FOOD, 89.0, 1.1, 0.3, 22.8),
+    Food(102, R.string.apple, FoodType.FOOD, 52.0, 0.3, 0.2, 14.0),
+    Food(103, R.string.banana, FoodType.FOOD, 89.0, 1.1, 0.3, 22.8),
 //    Food(104, R.string.orange, FoodType.FOOD, 47.0, 0.9, 0.1, 11.8),
 //    Food(105, R.string.mandarin, FoodType.FOOD, 53.0, 0.8, 0.3, 13.3),
 //    Food(106, R.string.lemon, FoodType.FOOD, 29.0, 1.1, 0.3, 9.3),
