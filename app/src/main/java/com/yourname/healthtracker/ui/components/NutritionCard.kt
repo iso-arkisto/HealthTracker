@@ -97,7 +97,7 @@ private fun CaloriesSection(calories: Int) {
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Энергетическая ценность",
+            text = stringResource(R.string.nut_value),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -109,7 +109,7 @@ private fun CaloriesSection(calories: Int) {
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = "ккал",
+            text = stringResource(R.string.kcal),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -171,7 +171,7 @@ private fun NutritionProgressSection(protein: Double, fats: Double, carbs: Doubl
     if (total > 0) {
         Column {
             Text(
-                text = "Баланс макронутриентов",
+                text = stringResource(R.string.mn_balance),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(bottom = 12.dp)

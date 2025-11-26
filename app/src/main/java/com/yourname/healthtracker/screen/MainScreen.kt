@@ -154,6 +154,9 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                     )
 
                 }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                        NutritionCard(repository.findFoodById(chosenFood)!!,foodVM.foodAddValue)
                         Spacer(modifier = Modifier.height(12.dp))
                         Button(
                             onClick = {
@@ -167,8 +170,6 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                                 text = stringResource(R.string.add)
                             )
                         }
-                        Spacer(modifier = Modifier.height(12.dp))
-                        NutritionCard(repository.findFoodById(chosenFood)!!,foodVM.foodAddValue)
                     } else if(chosenTab == "drinks") {
                         ExposedDropdownMenuBox(
                             expanded = isExpanded1,
@@ -224,6 +225,9 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                             )
 
                         }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                        NutritionCard(repository.findFoodById(chosenDrink)!!,foodVM.drinkAddValue)
                         Spacer(modifier = Modifier.height(12.dp))
                         Button(
                             onClick = {
@@ -237,9 +241,6 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                                 text = stringResource(R.string.add)
                             )
                         }
-                        Spacer(modifier = Modifier.height(12.dp))
-                        NutritionCard(repository.findFoodById(chosenDrink)!!,foodVM.drinkAddValue)
-
 
                     }
                 }

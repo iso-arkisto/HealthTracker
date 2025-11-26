@@ -79,4 +79,14 @@
     <string name="fats">Жиры</string>
     <string name="carbs">Углеводы</string>
     <string name="how_drink">Сколько напитка вы выпили? (миллилитры)</string>
+    <string name="for_today">За сегодня</string>
+    <string name="for_week">За неделю</string>
+    <string name="for_month">За месяц</string>
+    <string name="for_all_time">За всё время</string>
+    <string name="nut_value">Энергетическая ценность</string>
+    <string name="kcal">ккал</string>
+    <string name="mn_balance">Баланс макронутриентов</string>
+    <string name="bccu">КБЖУ</string>
+    <string name="logs">Записи</string>
+    <string name="empty">Пусто!</string>
 </resources>

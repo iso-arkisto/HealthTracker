@@ -78,4 +78,14 @@
     <string name="fats">Fats</string>
     <string name="carbs">Carbs</string>
     <string name="how_drink">How much drink did you drink? (milliliters)</string>
+    <string name="for_today">For today</string>
+    <string name="for_week">For a week</string>
+    <string name="for_month">For a month</string>
+    <string name="for_all_time">For all the time</string>
+    <string name="nut_value">Nutritional value</string>
+    <string name="kcal">kcal</string>
+    <string name="mn_balance">Macronutrient balance</string>
+    <string name="bccu">BCCU</string>
+    <string name="logs">Logs</string>
+    <string name="empty">It\'s empty!</string>
 </resources>
