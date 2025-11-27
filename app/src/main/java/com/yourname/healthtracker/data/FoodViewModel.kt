@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,6 +17,7 @@ class FoodViewModel @Inject constructor(
     var day = FoodDay(
         date = repository.getCurrentDate(),
     )
+
     var waterProgress: Float by mutableFloatStateOf(0f)
     var caloriesProgress: Float by mutableFloatStateOf(0f)
     var waterAddValue: Int by mutableIntStateOf(230)

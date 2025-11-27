@@ -83,23 +83,23 @@ class MainRepositoryImpl @Inject constructor(): MainRepository {
     Food(66, R.string.canned_sardines, FoodType.FOOD, 208.0, 25.0, 11.0, 0.0),
 
     // 🥚 Яйца и продукты
-//    Food(67, R.string.egg_chicken, FoodType.FOOD, 157.0, 12.7, 11.5, 0.7),
-//    Food(68, R.string.egg_quail, FoodType.FOOD, 158.0, 13.1, 11.1, 0.4),
-//    Food(69, R.string.egg_white, FoodType.FOOD, 52.0, 10.9, 0.2, 0.7),
-//    Food(70, R.string.egg_yolk, FoodType.FOOD, 322.0, 16.2, 26.5, 1.0),
+    Food(67, R.string.egg_chicken, FoodType.FOOD, 157.0, 12.7, 11.5, 0.7),
+    Food(68, R.string.egg_quail, FoodType.FOOD, 158.0, 13.1, 11.1, 0.4),
+    Food(69, R.string.egg_white, FoodType.FOOD, 52.0, 10.9, 0.2, 0.7),
+    Food(70, R.string.egg_yolk, FoodType.FOOD, 322.0, 16.2, 26.5, 1.0),
 //
 //    // 🌾 Крупы и злаки
-//    Food(71, R.string.buckwheat, FoodType.FOOD, 101.0, 4.2, 1.1, 21.3),
-//    Food(72, R.string.oatmeal, FoodType.FOOD, 88.0, 3.0, 1.7, 15.0),
-//    Food(73, R.string.rice_white, FoodType.FOOD, 130.0, 2.7, 0.3, 28.0),
-//    Food(74, R.string.rice_brown, FoodType.FOOD, 111.0, 2.6, 0.9, 23.0),
-//    Food(75, R.string.quinoa, FoodType.FOOD, 120.0, 4.4, 1.9, 21.3),
-//    Food(76, R.string.bulgur, FoodType.FOOD, 83.0, 3.1, 0.2, 18.6),
-//    Food(77, R.string.pasta, FoodType.FOOD, 131.0, 4.6, 0.7, 25.0),
-//    Food(78, R.string.bread_white, FoodType.FOOD, 265.0, 9.0, 3.2, 49.0),
-//    Food(79, R.string.bread_wholegrain, FoodType.FOOD, 247.0, 13.0, 3.4, 41.0),
-//    Food(80, R.string.bread_rye, FoodType.FOOD, 259.0, 8.5, 3.3, 48.0),
-//    Food(81, R.string.buckwheat_bread, FoodType.FOOD, 228.0, 7.5, 2.5, 44.0),
+    Food(71, R.string.buckwheat, FoodType.FOOD, 101.0, 4.2, 1.1, 21.3),
+    Food(72, R.string.oatmeal, FoodType.FOOD, 88.0, 3.0, 1.7, 15.0),
+    Food(73, R.string.rice_white, FoodType.FOOD, 130.0, 2.7, 0.3, 28.0),
+    Food(74, R.string.rice_brown, FoodType.FOOD, 111.0, 2.6, 0.9, 23.0),
+    Food(75, R.string.quinoa, FoodType.FOOD, 120.0, 4.4, 1.9, 21.3),
+    Food(76, R.string.bulgur, FoodType.FOOD, 83.0, 3.1, 0.2, 18.6),
+    Food(77, R.string.pasta, FoodType.FOOD, 131.0, 4.6, 0.7, 25.0),
+    Food(78, R.string.bread_white, FoodType.FOOD, 265.0, 9.0, 3.2, 49.0),
+    Food(79, R.string.bread_wholegrain, FoodType.FOOD, 247.0, 13.0, 3.4, 41.0),
+    Food(80, R.string.bread_rye, FoodType.FOOD, 259.0, 8.5, 3.3, 48.0),
+    Food(81, R.string.buckwheat_bread, FoodType.FOOD, 228.0, 7.5, 2.5, 44.0),
 //
 //    // 🥔 Овощи
 //    Food(82, R.string.potato, FoodType.FOOD, 86.0, 1.7, 0.1, 18.2),

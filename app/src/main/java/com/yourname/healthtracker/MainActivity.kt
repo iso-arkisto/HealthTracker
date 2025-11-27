@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import com.yourname.healthtracker.data.FoodViewModel
 import com.yourname.healthtracker.data.MainRepository
 import com.yourname.healthtracker.data.MainRepositoryImpl
+import com.yourname.healthtracker.data.ProfileViewModel
 import com.yourname.healthtracker.di.AppModule
 import com.yourname.healthtracker.screen.MainScreen
 import com.yourname.healthtracker.screen.SettingsScreen
@@ -40,6 +41,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 //                val repository: MainRepository = AppModule.provideMainRepository()
                 val foodVM: FoodViewModel = viewModel()
+                val profileVM: ProfileViewModel = viewModel()
                 val repository: MainRepository = AppModule.provideMainRepository()
 
                 Scaffold(
@@ -59,7 +61,7 @@ class MainActivity : ComponentActivity() {
                             StatsScreen(foodVM, repository)
                         }
                         composable(route = Screen.Settings.route) {
-                            SettingsScreen(foodVM)
+                            SettingsScreen(foodVM, profileVM)
                         }
                     }
                 }
