@@ -52,14 +52,14 @@ fun NutritionCard(food: Food, amount: Int = 100) {
 
              Spacer(modifier = Modifier.height(24.dp))
 
-             CaloriesSection(calories = if(amount >= 100) (food.calories * (amount/100)).toInt() else (food.calories / (100/amount)).toInt())
+             CaloriesSection(calories = if(amount >= 100) (food.calories * (amount.toDouble()/100)).toInt() else (food.calories / (100/amount.toDouble())).toInt())
 
              Spacer(modifier = Modifier.height(20.dp))
 
              MacrosSection(
-                 protein = if(amount >= 100) ((food.protein * (amount/100)) * 10).roundToInt() / 10.0 else ((food.protein / (100/amount)) * 10).roundToInt() / 10.0,
-                 fats = if(amount >= 100) ((food.fat * (amount/100)) * 10).roundToInt() / 10.0 else ((food.fat / (100/amount)) * 10).roundToInt() / 10.0,
-                 carbs = if(amount >= 100) ((food.carbs * (amount/100)) * 10).roundToInt() / 10.0 else ((food.carbs / (100/amount)) * 10).roundToInt() / 10.0
+                 protein = if(amount >= 100) ((food.protein * (amount.toDouble()/100)) * 10).roundToInt() / 10.0 else ((food.protein / (100/amount.toDouble())) * 10).roundToInt() / 10.0,
+                 fats = if(amount >= 100) ((food.fat * (amount.toDouble()/100)) * 10).roundToInt() / 10.0 else ((food.fat / (100/amount.toDouble())) * 10).roundToInt() / 10.0,
+                 carbs = if(amount >= 100) ((food.carbs * (amount.toDouble()/100)) * 10).roundToInt() / 10.0 else ((food.carbs / (100/amount.toDouble())) * 10).roundToInt() / 10.0
              )
 
              Spacer(modifier = Modifier.height(16.dp))
