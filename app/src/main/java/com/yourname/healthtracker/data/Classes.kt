@@ -8,20 +8,7 @@ data class WaterDay(
     var amount: Int
 )
 
-data class FoodDay(
-    val date: String,
 
-    var waterGoal: Int = 2500,
-    var caloriesGoal: Int = 2200,
-    var waterAmount: Int = 0,
-
-    var logs: List<FoodLog> = emptyList<FoodLog>(),
-
-    var calories: Double = 0.0,
-    var protein: Double = 0.0,
-    var carbs: Double = 0.0,
-    var fat: Double = 0.0,
-)
 
 data class FoodLog(
     val amount: Int,
@@ -101,13 +88,13 @@ class CalorieCalculator {
                 FitnessGoal.WEIGHT_GAIN -> 0.25
             }
 
-            val fatPercentage = 0.25    // 25% для всех целей
+            val fatPercentage = 0.25
             val carbPercentage = 1 - proteinPercentage - fatPercentage
 
             return MacroNutrients(
-                protein = (calories * proteinPercentage / 4).toInt(),     // 1г белка = 4 ккал
-                fats = (calories * fatPercentage / 9).toInt(),           // 1г жира = 9 ккал
-                carbs = (calories * carbPercentage / 4).toInt()          // 1г углеводов = 4 ккал
+                protein = (calories * proteinPercentage / 4).toInt(),
+                fats = (calories * fatPercentage / 9).toInt(),
+                carbs = (calories * carbPercentage / 4).toInt()
             )
         }
     }

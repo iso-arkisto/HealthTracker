@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import com.yourname.healthtracker.R
 import com.yourname.healthtracker.data.ActivityLevel
@@ -50,9 +51,13 @@ import com.yourname.healthtracker.ui.components.MenuTitle
 fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
 
     val userProfile = profileVM.userProfile.collectAsState()
+    val foodDay = foodVM.day.collectAsState()
 
     var waterGoal by remember { mutableStateOf("2500") }
     var caloriesGoal by remember { mutableStateOf("2200") }
+    var proteinGoal by remember { mutableStateOf("84.0") }
+    var fatsGoal by remember { mutableStateOf("60.0") }
+    var carbsGoal by remember { mutableStateOf("300.0") }
 
     var gender by remember { mutableIntStateOf(R.string.male) }
     var age by remember { mutableStateOf("251") }
@@ -88,12 +93,19 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
         FitnessGoal.WEIGHT_LOSS,
         FitnessGoal.WEIGHT_GAIN
     )
+    val recommendedMacroNutrients = CalorieCalculator.calculateMacros(
+        foodDay.value.caloriesGoal,
+        userProfile.value.fitnessGoal
+    )
 
 
 
     LaunchedEffect(Unit) {
-        waterGoal = foodVM.day.waterGoal.toString()
-        caloriesGoal = foodVM.day.caloriesGoal.toString()
+        waterGoal = foodDay.value.waterGoal.toString()
+        caloriesGoal = foodDay.value.caloriesGoal.toString()
+        proteinGoal = foodDay.value.proteinGoal.toString()
+        fatsGoal = foodDay.value.fatsGoal.toString()
+        carbsGoal = foodDay.value.carbsGoal.toString()
 
         gender = userProfile.value.gender
         age = userProfile.value.age.toString()
@@ -131,6 +143,7 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                 },
                 label = { Text(stringResource(R.string.water_goal)) },
             )
+            Spacer(modifier = Modifier.height(15.dp))
             TextField(
                 value = caloriesGoal,
                 onValueChange = {
@@ -141,6 +154,43 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = "${stringResource(R.string.rec_kal_goal)}: ${CalorieCalculator.calculateDailyCalories(userProfile.value)} ${stringResource(R.string.kcal)}"
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            TextField(
+                value = proteinGoal,
+                onValueChange = {
+                    proteinGoal = it
+                },
+                label = { Text(stringResource(R.string.protein_goal)) },
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "${stringResource(R.string.recommended)} ${stringResource(R.string.protein_goal).lowercase()}: ${recommendedMacroNutrients.protein} ${stringResource(R.string.grams)}"
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            TextField(
+                value = fatsGoal,
+                onValueChange = {
+                    fatsGoal = it
+                },
+                label = { Text(stringResource(R.string.fats_goal)) },
+            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "${stringResource(R.string.recommended)} ${stringResource(R.string.fats_goal).lowercase()}: ${recommendedMacroNutrients.fats} ${stringResource(R.string.grams)}"
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            TextField(
+                value = carbsGoal,
+                onValueChange = {
+                    carbsGoal = it
+                },
+                label = { Text(stringResource(R.string.carbs_goal)) },
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "${stringResource(R.string.recommended)} ${stringResource(R.string.carbs_goal).lowercase()}: ${recommendedMacroNutrients.carbs} ${stringResource(R.string.grams)}"
             )
             Spacer(modifier = Modifier.height(20.dp))
             if(errorState.isNotEmpty()) {
@@ -156,8 +206,8 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                     saveSuccess = false
                     errorState = errorMessage
 
-                    if(waterGoal.toIntOrNull() != null && caloriesGoal.toIntOrNull() != null) {
-                        if(waterGoal.toInt() > 100 && waterGoal.toInt() < 10000 && caloriesGoal.toInt() > 10 && caloriesGoal.toInt() < 25000) {
+                    if(waterGoal.toIntOrNull() != null && caloriesGoal.toIntOrNull() != null && proteinGoal.toDoubleOrNull() != null && fatsGoal.toDoubleOrNull() != null && carbsGoal.toDoubleOrNull() != null) {
+                        if(waterGoal.toInt() > 100 && waterGoal.toInt() < 10000 && caloriesGoal.toInt() > 10 && caloriesGoal.toInt() < 25000 && proteinGoal.toDouble() >= 0.0 && proteinGoal.toDouble() < 10000.0 && fatsGoal.toDouble() >= 0.0 && fatsGoal.toDouble() < 10000.0 && carbsGoal.toDouble() >= 0.0 && carbsGoal.toDouble() < 1000000.0) {
                             saveSuccess = true
                             errorState = saveSuccessMessage
                         }
@@ -166,11 +216,17 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                     if(saveSuccess) {
                         foodVM.updateSettings(
                             waterGoal.toInt(),
-                            caloriesGoal.toInt()
+                            caloriesGoal.toInt(),
+                            proteinGoal.toDouble(),
+                            fatsGoal.toDouble(),
+                            carbsGoal.toDouble()
                         )
                     } else {
-                        waterGoal = foodVM.day.waterGoal.toString()
-                        caloriesGoal = foodVM.day.caloriesGoal.toString()
+                        waterGoal = foodDay.value.waterGoal.toString()
+                        caloriesGoal = foodDay.value.caloriesGoal.toString()
+                        proteinGoal = foodDay.value.proteinGoal.toString()
+                        fatsGoal = foodDay.value.fatsGoal.toString()
+                        carbsGoal = foodDay.value.carbsGoal.toString()
 
                     }
                 },
@@ -318,8 +374,10 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
 
             }
             Spacer(modifier = Modifier.height(15.dp))
+            Text("${stringResource(activityLevel.displayName)}: ${stringResource(activityLevel.desc)}")
+            Spacer(modifier = Modifier.height(15.dp))
 
-            FlowRow(
+            Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
@@ -330,7 +388,7 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                     expanded = isExpanded2,
                     onExpandedChange = { isExpanded2 = it },
                     modifier = Modifier
-                        .width(200.dp)
+                        .width(300.dp)
                         .padding(start = 15.dp)
                 ) {
                     TextField(

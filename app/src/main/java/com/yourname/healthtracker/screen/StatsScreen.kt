@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.DropdownMenuItem
@@ -18,12 +19,15 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yourname.healthtracker.R
@@ -44,6 +48,8 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
     var isExpanded1 by remember {
         mutableStateOf(false)
     }
+    val foodDay = foodViewModel.day.collectAsState()
+
     val menu1options = listOf(
         R.string.for_today,
         R.string.for_week,
@@ -136,12 +142,12 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
         Spacer(modifier = Modifier.height(15.dp))
 
         if(chosenTab == R.string.logs) {
-                if(foodViewModel.day.logs.size > 0) {
+                if(foodDay.value.logs.size > 0) {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                     ) {
-                        items(foodViewModel.day.logs.sortedByDescending { it.timestamp }) { log ->
+                        items(foodDay.value.logs.sortedByDescending { it.timestamp }) { log ->
                             val food: Food? = repository.findFoodById(log.foodId)
                             var name: String
                             var type: FoodType
@@ -175,14 +181,48 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
             DeterminateProgressWithText(
                 stringResource(R.string.water),
                 foodViewModel.waterProgress,
-                WaterColor
+                WaterColor,
+                modifier = Modifier.size(100.dp)
             )
         } else if(chosenTab == R.string.bccu) {
-            DeterminateProgressWithText(
-                stringResource(R.string.calories),
-                foodViewModel.caloriesProgress,
-                FoodColor
-            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                DeterminateProgressWithText(
+                    stringResource(R.string.calories),
+                    foodViewModel.caloriesProgress,
+                    FoodColor,
+                    modifier = Modifier.size(150.dp)
+
+                )
+                Spacer(modifier = Modifier.height(30.dp))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DeterminateProgressWithText(
+                        stringResource(R.string.protein),
+                        foodViewModel.proteinProgress,
+                        Color.Blue,
+                        modifier = Modifier.size(100.dp)
+
+                    )
+                    DeterminateProgressWithText(
+                        stringResource(R.string.fats),
+                        foodViewModel.fatsProgress,
+                        Color.Yellow,
+                        modifier = Modifier.size(100.dp)
+
+                    )
+                    DeterminateProgressWithText(
+                        stringResource(R.string.carbs),
+                        foodViewModel.carbsProgress,
+                        Color.Green,
+                        modifier = Modifier.size(100.dp)
+                    )
+                }
+            }
         }
 
 
