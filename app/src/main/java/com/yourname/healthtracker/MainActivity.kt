@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
                             StatsScreen(foodVM, repository)
                         }
                         composable(route = Screen.Settings.route) {
-                            SettingsScreen(foodVM, profileVM)
+                            SettingsScreen(foodVM, profileVM    )
                         }
                     }
                 }

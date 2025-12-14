@@ -1,6 +1,7 @@
 package com.yourname.healthtracker.ui.components
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,20 +24,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yourname.healthtracker.ui.theme.RedTransparent
 import com.yourname.healthtracker.ui.theme.WaterColor
 import kotlinx.coroutines.launch
 
 @Composable
-fun DeterminateProgressWithText(title: String, progress: Float, color: Color) {
+fun DeterminateProgressWithText(title: String, progress: Float, color: Color, modifier: Modifier) {
 
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
         animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
         label = ""
     )
+    var background = Modifier.background(Color.Transparent)
+
+    if(progress > 1.0f) {
+        background = Modifier.background(RedTransparent)
+    }
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = background
     ) {
         Text(
             text = title,
@@ -44,12 +52,14 @@ fun DeterminateProgressWithText(title: String, progress: Float, color: Color) {
         )
         Spacer(modifier = Modifier.height(20.dp))
         Box(
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
+
         ) {
             CircularProgressIndicator(
                 progress = { animatedProgress },
-                modifier = Modifier.size(100.dp),
-                color = color
+                modifier = modifier,
+                color = color,
+
             )
             Text(
                text = "${(animatedProgress*100).toInt()}%",
