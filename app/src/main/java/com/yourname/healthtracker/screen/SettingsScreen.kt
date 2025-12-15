@@ -35,8 +35,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.yourname.healthtracker.R
 import com.yourname.healthtracker.data.ActivityLevel
 import com.yourname.healthtracker.data.CalorieCalculator
@@ -136,12 +138,19 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                     chosenTab = 0
                 }
             )
+            Text(
+                stringResource(R.string.set_goals),
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(15.dp))
             TextField(
                 value = waterGoal,
                 onValueChange = {
                     waterGoal = it
                 },
-                label = { Text(stringResource(R.string.water_goal)) },
+                label = { Text("${stringResource(R.string.water)} (${stringResource(R.string.milliliters)})") },
+                modifier = Modifier.width(150.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
             TextField(
@@ -149,11 +158,9 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                 onValueChange = {
                     caloriesGoal = it
                 },
-                label = { Text(stringResource(R.string.calories_goal)) },
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = "${stringResource(R.string.rec_kal_goal)}: ${CalorieCalculator.calculateDailyCalories(userProfile.value)} ${stringResource(R.string.kcal)}"
+                label = { Text("${stringResource(R.string.calories)} (${stringResource(R.string.grams)}) - ${CalorieCalculator.calculateDailyCalories(userProfile.value)}*") },
+                modifier = Modifier.width(150.dp)
+
             )
             Spacer(modifier = Modifier.height(15.dp))
             TextField(
@@ -161,11 +168,9 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                 onValueChange = {
                     proteinGoal = it
                 },
-                label = { Text(stringResource(R.string.protein_goal)) },
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = "${stringResource(R.string.recommended)} ${stringResource(R.string.protein_goal).lowercase()}: ${recommendedMacroNutrients.protein} ${stringResource(R.string.grams)}"
+                label = { Text("${stringResource(R.string.protein)} (${stringResource(R.string.grams)}) - ${recommendedMacroNutrients.protein}*") },
+                modifier = Modifier.width(150.dp)
+
             )
             Spacer(modifier = Modifier.height(15.dp))
             TextField(
@@ -173,25 +178,22 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                 onValueChange = {
                     fatsGoal = it
                 },
-                label = { Text(stringResource(R.string.fats_goal)) },
-            )
+                label = { Text("${stringResource(R.string.fats)} (${stringResource(R.string.grams)})  - ${recommendedMacroNutrients.fats}*") },
+                modifier = Modifier.width(150.dp)
 
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = "${stringResource(R.string.recommended)} ${stringResource(R.string.fats_goal).lowercase()}: ${recommendedMacroNutrients.fats} ${stringResource(R.string.grams)}"
-            )
+                )
+
             Spacer(modifier = Modifier.height(15.dp))
             TextField(
                 value = carbsGoal,
                 onValueChange = {
                     carbsGoal = it
                 },
-                label = { Text(stringResource(R.string.carbs_goal)) },
+                label = { Text("${stringResource(R.string.carbs)} (${stringResource(R.string.grams)}) - ${recommendedMacroNutrients.carbs}*") },
+                modifier = Modifier.width(150.dp)
+
             )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = "${stringResource(R.string.recommended)} ${stringResource(R.string.carbs_goal).lowercase()}: ${recommendedMacroNutrients.carbs} ${stringResource(R.string.grams)}"
-            )
+//
             Spacer(modifier = Modifier.height(20.dp))
             if(errorState.isNotEmpty()) {
                 Text(
@@ -200,6 +202,8 @@ fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
+            Text("* - ${stringResource(R.string.recommended)}")
+            Spacer(modifier = Modifier.height(20.dp))
 
             Button(
                 onClick = {
