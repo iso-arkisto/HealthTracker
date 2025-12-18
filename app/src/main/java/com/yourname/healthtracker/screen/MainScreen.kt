@@ -108,7 +108,7 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(15.dp))
 
 
 //                    MenuTab(stringResource(R.string.food),
@@ -125,7 +125,6 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
 //                LazyColumn {
                     if(chosenTab == R.string.food) {
 
-                        Spacer(modifier = Modifier.height(30.dp))
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -180,9 +179,8 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(5.dp))
                         NutritionCard(repository.findFoodById(chosenFood)!!,foodVM.foodAddValue)
-                        Spacer(modifier = Modifier.height(12.dp))
                         Button(
                             onClick = {
                                 foodVM.addFood(chosenFood,foodVM.foodAddValue)
@@ -197,7 +195,6 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                         }
                     } else if(chosenTab == R.string.drinks) {
 
-                    Spacer(modifier = Modifier.height(30.dp))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -253,9 +250,8 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
 
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                     NutritionCard(repository.findFoodById(chosenDrink)!!,foodVM.drinkAddValue)
-                    Spacer(modifier = Modifier.height(12.dp))
                     Button(
                         onClick = {
                             foodVM.addFood(chosenDrink,foodVM.drinkAddValue)
