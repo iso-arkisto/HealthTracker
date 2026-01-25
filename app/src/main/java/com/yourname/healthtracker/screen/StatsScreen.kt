@@ -31,10 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.Food
-import com.yourname.healthtracker.data.FoodType
-import com.yourname.healthtracker.data.FoodViewModel
-import com.yourname.healthtracker.data.MainRepository
+import com.yourname.healthtracker.data.classes.Food
+import com.yourname.healthtracker.data.classes.FoodType
+import com.yourname.healthtracker.data.viewmodel.FoodViewModel
+import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
 import com.yourname.healthtracker.ui.theme.FoodColor
 import com.yourname.healthtracker.ui.theme.WaterColor
@@ -48,7 +48,7 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
     var isExpanded1 by remember {
         mutableStateOf(false)
     }
-    val foodDay = foodViewModel.day.collectAsState()
+    val foodDay = foodViewModel.currentDay.collectAsState()
 
     val menu1options = listOf(
         R.string.for_today,

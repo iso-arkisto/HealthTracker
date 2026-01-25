@@ -25,8 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.Food
-import androidx.compose.material3.CircularProgressIndicator
+import com.yourname.healthtracker.data.classes.Food
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.sp
