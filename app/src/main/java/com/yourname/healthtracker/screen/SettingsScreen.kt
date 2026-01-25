@@ -1,7 +1,5 @@
 package com.yourname.healthtracker.screen
 
-import android.util.Log
-import android.widget.Space
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -11,40 +9,34 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.ActivityLevel
-import com.yourname.healthtracker.data.CalorieCalculator
-import com.yourname.healthtracker.data.FitnessGoal
-import com.yourname.healthtracker.data.FoodViewModel
-import com.yourname.healthtracker.data.ProfileViewModel
+import com.yourname.healthtracker.data.classes.ActivityLevel
+import com.yourname.healthtracker.data.classes.CalorieCalculator
+import com.yourname.healthtracker.data.classes.FitnessGoal
+import com.yourname.healthtracker.data.viewmodel.FoodViewModel
+import com.yourname.healthtracker.data.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.ui.components.MenuTab
 import com.yourname.healthtracker.ui.components.MenuTitle
 
@@ -53,7 +45,7 @@ import com.yourname.healthtracker.ui.components.MenuTitle
 fun SettingsScreen(foodVM: FoodViewModel, profileVM: ProfileViewModel) {
 
     val userProfile = profileVM.userProfile.collectAsState()
-    val foodDay = foodVM.day.collectAsState()
+    val foodDay = foodVM.currentDay.collectAsState()
 
     var waterGoal by remember { mutableStateOf("2500") }
     var caloriesGoal by remember { mutableStateOf("2200") }

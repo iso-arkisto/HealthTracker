@@ -1,10 +1,11 @@
-package com.yourname.healthtracker.data
+package com.yourname.healthtracker.data.room.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.yourname.healthtracker.data.classes.FoodLog
 
-class Converters {
+class FoodLogConverter {
     @TypeConverter
     fun fromFoodLogList(value: List<FoodLog>?): String? {
         if (value == null) {
