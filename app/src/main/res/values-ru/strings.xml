@@ -218,4 +218,5 @@
     <string name="protein_goal">Суточная порция белков (в граммах)</string>
     <string name="fats_goal">Суточная порция жиров (в граммах)</string>
     <string name="recommended">Рекомендуемая</string>
+    <string name="set_goals">Установите свои дневные цели</string>
 </resources>

@@ -4,22 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
-import com.yourname.healthtracker.data.FoodViewModel
-import com.yourname.healthtracker.data.MainRepository
-import com.yourname.healthtracker.data.MainRepositoryImpl
-import com.yourname.healthtracker.data.ProfileViewModel
+import com.yourname.healthtracker.data.viewmodel.FoodViewModel
+import com.yourname.healthtracker.data.repository.MainRepository
+import com.yourname.healthtracker.data.room.AppDatabase
+import com.yourname.healthtracker.data.room.dao.DaysDao
+import com.yourname.healthtracker.data.room.dao.UserProfileDao
+import com.yourname.healthtracker.data.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.di.AppModule
 import com.yourname.healthtracker.screen.MainScreen
 import com.yourname.healthtracker.screen.SettingsScreen
@@ -39,10 +36,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             HealthTrackerTheme {
                 val navController = rememberNavController()
-//                val repository: MainRepository = AppModule.provideMainRepository()
                 val foodVM: FoodViewModel = viewModel()
                 val profileVM: ProfileViewModel = viewModel()
-                val repository: MainRepository = AppModule.provideMainRepository()
+                val mainDB: AppDatabase = AppModule.provideDatabase(this)
+                val daysDao: DaysDao = AppModule.providesDaysDao(mainDB)
+                val userProfileDao: UserProfileDao = AppModule.providesProfileDao(mainDB)
+                val repository: MainRepository = AppModule.provideMainRepository(daysDao, userProfileDao)
+                foodVM.loadDay(repository.getCurrentDate())
+                profileVM.loadProfile()
 
                 Scaffold(
                     bottomBar = {

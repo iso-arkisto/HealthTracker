@@ -1,13 +1,13 @@
-package com.yourname.healthtracker.data
+package com.yourname.healthtracker.data.room.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.yourname.healthtracker.data.classes.FoodLog
 
 @Entity(tableName = "days_table")
 data class FoodDay(
 
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
 
     val date: String,
 
@@ -18,7 +18,7 @@ data class FoodDay(
     var carbsGoal: Double = 300.0,
     var waterAmount: Int = 0,
 
-    var logs: List<FoodLog> = emptyList<FoodLog>(),
+    var logs: List<FoodLog> = emptyList(),
 
     var calories: Double = 0.0,
     var protein: Double = 0.0,

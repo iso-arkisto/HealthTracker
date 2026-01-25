@@ -217,4 +217,5 @@
     <string name="protein_goal">Daily portion of protein (in grams)</string>
     <string name="fats_goal">Daily portion of fat (in grams)</string>
     <string name="recommended">Recommended</string>
+    <string name="set_goals">Set your daily goals</string>
 </resources>

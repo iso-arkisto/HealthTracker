@@ -1,8 +1,5 @@
 package com.yourname.healthtracker.screen
 
-import android.util.Log
-import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,21 +26,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.FoodType
-import com.yourname.healthtracker.data.FoodViewModel
-import com.yourname.healthtracker.data.MainRepository
-import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
-import com.yourname.healthtracker.ui.components.MenuTab
+import com.yourname.healthtracker.data.classes.FoodType
+import com.yourname.healthtracker.data.viewmodel.FoodViewModel
+import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.ui.components.NutritionCard
-import com.yourname.healthtracker.ui.theme.FoodColor
-import com.yourname.healthtracker.ui.theme.WaterColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,7 +57,7 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
     val menu3options = listOf(R.string.food,R.string.drinks)
 
     var chosenTab by remember {
-        mutableStateOf(R.string.food)
+        mutableIntStateOf(R.string.food)
     }
 
     Column(
@@ -108,7 +95,7 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(15.dp))
 
 
 //                    MenuTab(stringResource(R.string.food),
@@ -125,7 +112,6 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
 //                LazyColumn {
                     if(chosenTab == R.string.food) {
 
-                        Spacer(modifier = Modifier.height(30.dp))
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -180,9 +166,8 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(5.dp))
                         NutritionCard(repository.findFoodById(chosenFood)!!,foodVM.foodAddValue)
-                        Spacer(modifier = Modifier.height(12.dp))
                         Button(
                             onClick = {
                                 foodVM.addFood(chosenFood,foodVM.foodAddValue)
@@ -197,7 +182,6 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                         }
                     } else if(chosenTab == R.string.drinks) {
 
-                    Spacer(modifier = Modifier.height(30.dp))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -253,9 +237,8 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
 
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                     NutritionCard(repository.findFoodById(chosenDrink)!!,foodVM.drinkAddValue)
-                    Spacer(modifier = Modifier.height(12.dp))
                     Button(
                         onClick = {
                             foodVM.addFood(chosenDrink,foodVM.drinkAddValue)
