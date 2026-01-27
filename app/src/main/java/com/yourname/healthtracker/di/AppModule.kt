@@ -2,8 +2,12 @@ package com.yourname.healthtracker.di
 
 import android.content.Context
 import androidx.room.Room
+import com.yourname.healthtracker.data.repository.DaysRepository
+import com.yourname.healthtracker.data.repository.DaysRepositoryImpl
 import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.data.repository.MainRepositoryImpl
+import com.yourname.healthtracker.data.repository.ProfileRepository
+import com.yourname.healthtracker.data.repository.ProfileRepositoryImpl
 import com.yourname.healthtracker.data.room.AppDatabase
 import com.yourname.healthtracker.data.room.dao.DaysDao
 import com.yourname.healthtracker.data.room.dao.UserProfileDao
@@ -19,8 +23,20 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideMainRepository(daysDao: DaysDao, profileDao: UserProfileDao): MainRepository {
-        return MainRepositoryImpl(daysDao, profileDao)
+    fun provideMainRepository(): MainRepository {
+        return MainRepositoryImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDaysRepository(dao: DaysDao): DaysRepository {
+        return DaysRepositoryImpl(dao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProfileRepository(dao: UserProfileDao): ProfileRepository {
+        return ProfileRepositoryImpl(dao)
     }
 
     @Provides

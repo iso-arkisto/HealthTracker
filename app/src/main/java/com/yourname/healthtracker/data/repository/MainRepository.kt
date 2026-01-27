@@ -9,6 +9,4 @@ interface MainRepository {
     fun getCurrentDate(): String
     fun findFoodById(id: Int): Food?
     fun getAllFood(type: FoodType): List<Food>
-    suspend fun getOrCreateDay(date: String): FoodDay
-    suspend fun getOrCreateProfile(): UserProfile
 }

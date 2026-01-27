@@ -1,8 +1,10 @@
 package com.yourname.healthtracker.data.classes
 
 import com.yourname.healthtracker.R
+import java.util.UUID
 
 data class FoodLog(
+    val id: String = UUID.randomUUID().toString(),
     val amount: Int,
     val foodId: Int,
     val timestamp: Long = System.currentTimeMillis(),
@@ -17,6 +19,8 @@ data class Food(
     val fat: Double,
     val carbs: Double,
     val isCustom: Boolean = false,
+    val icon: String = "🥚",
+
 )
 
 enum class FoodType {
