@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yourname.healthtracker.data.classes.FoodLog
 import com.yourname.healthtracker.data.classes.FoodType
+import com.yourname.healthtracker.data.repository.DaysRepository
 import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.data.room.AppDatabase
 import com.yourname.healthtracker.data.room.dao.DaysDao
@@ -19,19 +20,58 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.collections.plus
 
 @HiltViewModel
 class FoodViewModel @Inject constructor(
     private val repository: MainRepository,
-    private val daysDao: DaysDao
+    private val daysRepository: DaysRepository
 ): ViewModel() {
     private val _currentDay = MutableStateFlow(FoodDay(date = repository.getCurrentDate()))
 
     val currentDay = _currentDay.asStateFlow()
 
+    fun updateDay() {
+        waterProgress = (currentDay.value.waterAmount.toFloat()/currentDay.value.waterGoal)
+        caloriesProgress = (currentDay.value.calories.toFloat()/currentDay.value.caloriesGoal)
+        proteinProgress = (currentDay.value.protein.toFloat()/currentDay.value.proteinGoal.toFloat())
+        fatsProgress = (currentDay.value.fat.toFloat()/currentDay.value.fatsGoal.toFloat())
+        carbsProgress = (currentDay.value.carbs.toFloat()/currentDay.value.carbsGoal.toFloat())
+
+        viewModelScope.launch {
+            daysRepository.insertItem(currentDay.value)
+        }
+    }
+
+     fun removeFoodLog(id: String) {
+        val foodLog: FoodLog? = currentDay.value.logs.find { it.id == id }
+
+        if(foodLog!=null) {
+            val current = currentDay.value
+            val food = repository.findFoodById(foodLog.foodId) ?: return
+
+            _currentDay.value = current.copy(
+                waterAmount = if(food.type == FoodType.DRINK) {
+                    current.waterAmount-foodLog.amount
+                } else {
+                    current.waterAmount
+                },
+                calories = current.calories-(food.calories*(foodLog.amount/100)),
+                protein = current.protein-(food.protein*(foodLog.amount/100)),
+                fat = current.fat-(food.fat*(foodLog.amount/100)),
+                carbs = current.carbs-(food.carbs*(foodLog.amount/100)),
+                logs = current.logs - foodLog
+            )
+
+            updateDay()
+        }
+    }
+
+
+
     fun loadDay(date: String) {
         viewModelScope.launch {
-            val day = repository.getOrCreateDay(date)
+            val day = daysRepository.getOrCreateDay(date)
             _currentDay.value = day
 
             waterProgress = (currentDay.value.waterAmount.toFloat()/currentDay.value.waterGoal)
@@ -60,44 +100,30 @@ class FoodViewModel @Inject constructor(
             val current = currentDay.value
             val food = repository.findFoodById(id) ?: return
 
-            if(food.type == FoodType.FOOD) {
-                _currentDay.value = current.copy(
-                    logs = current.logs + FoodLog(
-                        amount = amount,
-                        foodId = id,
-                        timestamp = timestamp
-                    ),
-                    calories = current.calories+(food.calories*(amount/100)),
-                    protein = current.protein+(food.protein*(amount/100)),
-                    fat = current.fat+(food.fat*(amount/100)),
-                    carbs = current.carbs+(food.carbs*(amount/100))
+            _currentDay.value = current.copy(
+                waterAmount = if(food.type == FoodType.DRINK) {
+                    current.waterAmount+amount
+                } else {
+                    current.waterAmount
+                },
+                calories = current.calories+(food.calories*(amount/100)),
+                protein = current.protein+(food.protein*(amount/100)),
+                fat = current.fat+(food.fat*(amount/100)),
+                carbs = current.carbs+(food.carbs*(amount/100)),
+                logs = current.logs + FoodLog(
+                    foodId = id,
+                    amount = amount,
+                    timestamp = timestamp
                 )
-            } else {
-                _currentDay.value = current.copy(
-                    waterAmount = current.waterAmount + amount,
-                    logs = current.logs + FoodLog(
-                        amount = amount,
-                        foodId = id,
-                        timestamp = timestamp
-                    ),
-                    calories = current.calories+(food.calories*(amount/100)),
-                    protein = current.protein+(food.protein*(amount/100)),
-                    fat = current.fat+(food.fat*(amount/100)),
-                    carbs = current.carbs+(food.carbs*(amount/100))
-                )
-            }
+            )
 
-            waterProgress = (currentDay.value.waterAmount.toFloat()/currentDay.value.waterGoal)
-            caloriesProgress = (currentDay.value.calories.toFloat()/currentDay.value.caloriesGoal)
-            proteinProgress = (currentDay.value.protein.toFloat()/currentDay.value.proteinGoal.toFloat())
-            fatsProgress = (currentDay.value.fat.toFloat()/currentDay.value.fatsGoal.toFloat())
-            carbsProgress = (currentDay.value.carbs.toFloat()/currentDay.value.carbsGoal.toFloat())
-
-            viewModelScope.launch {
-                daysDao.insertItem(currentDay.value)
-            }
+            updateDay()
 
         }
+    }
+
+    suspend fun insertDay(item: FoodDay) {
+        daysRepository.insertItem(item)
     }
 
     fun updateSettings(
@@ -116,15 +142,7 @@ class FoodViewModel @Inject constructor(
             carbsGoal = carbsGoal
         )
 
-        waterProgress = (currentDay.value.waterAmount.toFloat()/currentDay.value.waterGoal)
-        caloriesProgress = (currentDay.value.calories.toFloat()/currentDay.value.caloriesGoal)
-        proteinProgress = (currentDay.value.protein.toFloat()/currentDay.value.proteinGoal.toFloat())
-        fatsProgress = (currentDay.value.fat.toFloat()/currentDay.value.fatsGoal.toFloat())
-        carbsProgress = (currentDay.value.carbs.toFloat()/currentDay.value.carbsGoal.toFloat())
-
-        viewModelScope.launch {
-            daysDao.insertItem(currentDay.value)
-        }
+        updateDay()
     }
 
 }

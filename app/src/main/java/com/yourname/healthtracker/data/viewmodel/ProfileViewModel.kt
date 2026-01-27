@@ -3,6 +3,7 @@ package com.yourname.healthtracker.data.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yourname.healthtracker.data.repository.MainRepository
+import com.yourname.healthtracker.data.repository.ProfileRepository
 import com.yourname.healthtracker.data.room.dao.UserProfileDao
 import com.yourname.healthtracker.data.room.entities.FoodDay
 import com.yourname.healthtracker.data.room.entities.UserProfile
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val repository: MainRepository,
-    private val profileDao: UserProfileDao
+    private val profileRepository: ProfileRepository
 ): ViewModel() {
     private val _userProfile = MutableStateFlow(UserProfile())
 
@@ -24,7 +25,7 @@ class ProfileViewModel @Inject constructor(
 
     fun loadProfile() {
         viewModelScope.launch {
-            val profile = repository.getOrCreateProfile()
+            val profile = profileRepository.getOrCreateProfile(0)
             _userProfile.value = profile
         }
     }
@@ -32,7 +33,7 @@ class ProfileViewModel @Inject constructor(
     fun updateProfile(profile: UserProfile) {
         _userProfile.value = profile
         viewModelScope.launch {
-            profileDao.updateProfile(profile)
+            profileRepository.insertItem(profile)
         }
     }
 }
