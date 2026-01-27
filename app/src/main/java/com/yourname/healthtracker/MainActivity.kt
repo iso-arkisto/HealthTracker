@@ -11,8 +11,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import com.yourname.healthtracker.data.repository.DaysRepository
 import com.yourname.healthtracker.data.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
+import com.yourname.healthtracker.data.repository.ProfileRepository
 import com.yourname.healthtracker.data.room.AppDatabase
 import com.yourname.healthtracker.data.room.dao.DaysDao
 import com.yourname.healthtracker.data.room.dao.UserProfileDao
@@ -41,7 +43,9 @@ class MainActivity : ComponentActivity() {
                 val mainDB: AppDatabase = AppModule.provideDatabase(this)
                 val daysDao: DaysDao = AppModule.providesDaysDao(mainDB)
                 val userProfileDao: UserProfileDao = AppModule.providesProfileDao(mainDB)
-                val repository: MainRepository = AppModule.provideMainRepository(daysDao, userProfileDao)
+                val repository: MainRepository = AppModule.provideMainRepository()
+                val daysRepository: DaysRepository = AppModule.provideDaysRepository(daysDao)
+                val profileRepository: ProfileRepository = AppModule.provideProfileRepository(userProfileDao)
                 foodVM.loadDay(repository.getCurrentDate())
                 profileVM.loadProfile()
 

@@ -19,15 +19,18 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yourname.healthtracker.R
@@ -36,8 +39,10 @@ import com.yourname.healthtracker.data.classes.FoodType
 import com.yourname.healthtracker.data.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
+import com.yourname.healthtracker.ui.components.FoodLogCard
 import com.yourname.healthtracker.ui.theme.FoodColor
 import com.yourname.healthtracker.ui.theme.WaterColor
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -68,6 +73,7 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
         mutableIntStateOf(R.string.logs)
     }
     val emptyMessage = stringResource(R.string.empty)
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -142,7 +148,7 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
         Spacer(modifier = Modifier.height(15.dp))
 
         if(chosenTab == R.string.logs) {
-                if(foodDay.value.logs.size > 0) {
+                if(foodDay.value.logs.isNotEmpty()) {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
@@ -160,17 +166,31 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
                                 type = FoodType.DRINK
                             }
 
-                            Text(
-                                text = "+${log.amount} ${
-                                    if (type == FoodType.FOOD) stringResource(R.string.grams) else stringResource(
-                                        R.string.milliliters
-                                    )
-                                } of $name (${
-                                    SimpleDateFormat("HH:mm", Locale.getDefault()).format(
-                                        Date(log.timestamp)
-                                    )
-                                })"
-                            )
+                           if(food!=null) {
+                               FoodLogCard(
+                                   name = name,
+                                   icon = food.icon,
+                                   time = SimpleDateFormat("HH:mm", Locale.getDefault()).format(
+                                       Date(log.timestamp)
+                                   ),
+                                   amount = "${log.amount} ${if(type == FoodType.FOOD) stringResource(R.string.grams) else stringResource(R.string.milliliters)}",
+                                   onDelete = {
+                                       foodViewModel.removeFoodLog(log.id)
+                                   }
+                               )
+                           }
+
+//                            Text(
+//                                text = "+${log.amount} ${
+//                                    if (type == FoodType.FOOD) stringResource(R.string.grams) else stringResource(
+//                                        R.string.milliliters
+//                                    )
+//                                } of $name (${
+//                                    SimpleDateFormat("HH:mm", Locale.getDefault()).format(
+//                                        Date(log.timestamp)
+//                                    )
+//                                })"
+//                            )
                         }
                     }
                 } else {

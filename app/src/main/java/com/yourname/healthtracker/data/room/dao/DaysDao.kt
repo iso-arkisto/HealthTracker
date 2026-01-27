@@ -20,4 +20,7 @@ interface DaysDao {
     @Query("SELECT * FROM days_table WHERE date == :itemDate LIMIT 1")
     suspend fun getItemByDate(itemDate: String): FoodDay?
 
+    @Query("SELECT * FROM days_table WHERE id = :id LIMIT 1")
+    suspend fun getItemById(id: Int): FoodDay?
+
 }
