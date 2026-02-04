@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,11 +38,11 @@ fun FoodLogCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(vertical = 8.dp),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFF7F9FC)
-        ),
+//        colors = CardDefaults.cardColors(
+//            containerColor = Color(0xFFF7F9FC)
+//        ),
         elevation = CardDefaults.cardElevation(0.dp)
     ) {
         Row(
@@ -53,8 +54,8 @@ fun FoodLogCard(
         ) {
             Box(
                 modifier = Modifier
-                    .size(48.dp)
-                    .background(Color.White, RoundedCornerShape(16.dp)),
+                    .size(48.dp),
+//                    .background(shape = RoundedCornerShape(16.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -73,7 +74,7 @@ fun FoodLogCard(
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 0.5.sp
                     ),
-                    color = Color(0xFF1A1C1E)
+//                    color = Color(0xFF1A1C1E)
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -82,17 +83,17 @@ fun FoodLogCard(
                     Text(
                         text = amount,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color(0xFF74777F)
+//                        color = Color(0xFF74777F)
                     )
                     Box(
                         modifier = Modifier
                             .size(3.dp)
-                            .background(Color(0xFFC4C7C5), RoundedCornerShape(50.dp))
+                            .clip(RoundedCornerShape(50.dp))
                     )
                     Text(
                         text = time,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color(0xFF74777F)
+//                        color = Color(0xFF74777F)
                     )
                 }
             }
@@ -100,7 +101,7 @@ fun FoodLogCard(
             IconButton(
                 onClick = onDelete,
                 colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = Color(0xFFFFEBEE),
+//                    containerColor = Color(0xFFFFEBEE),
                     contentColor = Color(0xFFD32F2F)
                 ),
                 modifier = Modifier.size(36.dp)
@@ -108,7 +109,7 @@ fun FoodLogCard(
                 Icon(
                     imageVector = Icons.Outlined.Close,
                     contentDescription = "Удалить",
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(23.dp)
                 )
             }
         }

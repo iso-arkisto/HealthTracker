@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yourname.healthtracker.R
@@ -52,8 +53,10 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
         mutableIntStateOf(35)
     }
 
-    val menu1options = repository.getAllFood(FoodType.DRINK).sortedBy { it.name }
-    val menu2options = repository.getAllFood(FoodType.FOOD).sortedBy { it.name }
+    val context = LocalContext.current
+
+    val menu1options = repository.getAllFood(FoodType.DRINK).sortedBy { context.getString(it.name) }
+    val menu2options = repository.getAllFood(FoodType.FOOD).sortedBy { context.getString(it.name) }
     val menu3options = listOf(R.string.food,R.string.drinks)
 
     var chosenTab by remember {

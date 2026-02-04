@@ -47,7 +47,7 @@ fun NutritionCard(food: Food, amount: Int = 100) {
              modifier = Modifier
                  .padding(20.dp)
          ) {
-             ProductHeader(stringResource(food.name), "$amount ${stringResource(R.string.grams)}")
+             ProductHeader(stringResource(food.name), stringResource(R.string.energy_per_grams, amount))
 
              Spacer(modifier = Modifier.height(24.dp))
 
@@ -82,7 +82,7 @@ private fun ProductHeader(productName: String, portionSize: String) {
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = "на $portionSize",
+            text = portionSize,
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
