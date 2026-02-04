@@ -219,4 +219,9 @@
     <string name="fats_goal">Суточная порция жиров (в граммах)</string>
     <string name="recommended">Рекомендуемая</string>
     <string name="set_goals">Установите свои дневные цели</string>
+    <string name="energy_per_grams">на %1$d граммов</string>
+    <string name="liquid_level">Уровень жидкости</string>
+    <string name="empty_logs_list_friendly">Пора добавить первый прием пищи, чтобы день был продуктивным!</string>
+    <string name="empty_logs_list_motivate">Записывайте всё, что едите, чтобы достичь цели быстрее.</string>
+    <string name="empty_logs_list_playful">Ваш трекер скучает по калориям. Может, время перекусить?</string>
 </resources>

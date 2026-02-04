@@ -218,4 +218,10 @@
     <string name="fats_goal">Daily portion of fat (in grams)</string>
     <string name="recommended">Recommended</string>
     <string name="set_goals">Set your daily goals</string>
+    <string name="energy_per_grams">per %1$d grams</string>
+    <string name="liquid_level">Fluid level</string>
+    <string name="empty_logs_list_friendly">Time to log your first meal for a productive day ahead!</string>
+    <string name="empty_logs_list_motivate">Track everything you eat to reach your goals faster.</string>
+    <string name="empty_logs_list_playful">Your tracker is craving some calories. Maybe it is time for a snack?</string>
+
 </resources>

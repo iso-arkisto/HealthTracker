@@ -1,6 +1,7 @@
 package com.yourname.healthtracker.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,30 +10,25 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.yourname.healthtracker.R
 import com.yourname.healthtracker.data.classes.Food
 import com.yourname.healthtracker.data.classes.FoodType
@@ -42,7 +38,6 @@ import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
 import com.yourname.healthtracker.ui.components.FoodLogCard
 import com.yourname.healthtracker.ui.theme.FoodColor
 import com.yourname.healthtracker.ui.theme.WaterColor
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -50,81 +45,35 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
-    var isExpanded1 by remember {
-        mutableStateOf(false)
-    }
     val foodDay = foodViewModel.currentDay.collectAsState()
 
-    val menu1options = listOf(
-        R.string.for_today,
-        R.string.for_week,
-        R.string.for_month,
-        R.string.for_all_time
-    )
     val menu2options = listOf(
         R.string.logs,
         R.string.bccu,
         R.string.drinks
     )
-    var chosenTime: Int by remember {
-        mutableIntStateOf(R.string.for_today)
-    }
+
+    val emptyLogsListTexts = listOf(
+        R.string.empty_logs_list_friendly,
+        R.string.empty_logs_list_motivate,
+        R.string.empty_logs_list_playful,
+    )
+    val emptyLogsListResult = emptyLogsListTexts.random()
+
     var chosenTab: Int by remember {
         mutableIntStateOf(R.string.logs)
     }
-    val emptyMessage = stringResource(R.string.empty)
-    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        ExposedDropdownMenuBox(
-            expanded = isExpanded1,
-            onExpandedChange = { isExpanded1 = it }
-        ) {
-            TextField(
-                value = stringResource(chosenTime),
-                onValueChange = {},
-                readOnly = true,
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded1)
-                },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                modifier = Modifier.menuAnchor()
-            )
-
-            ExposedDropdownMenu(
-                expanded = isExpanded1,
-                onDismissRequest = { isExpanded1 = false }
-            ) {
-                menu1options.forEach {
-                        opt ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(stringResource(opt))
-                        },
-                        onClick = {
-                            chosenTime = opt
-                            isExpanded1 = false
-                        }
-                    )
-                }
-            }
-        }
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth(),
-//            horizontalArrangement = Arrangement.spacedBy(30.dp)
-//        ) {
-//            Text("Logs")
-//            Text("Drinks")
-//            Text("BCCU")
-//        }
-//        BeautifulSelector(chosenTime, onOptionSelected = {
-//            chosenTime = it.toInt()
-//        }, modifier = Modifier.fillMaxSize(), options = menu1options)
+        Text(
+            text = repository.getCurrentDate(),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(15.dp))
         Row(
              modifier = Modifier
@@ -194,18 +143,40 @@ fun StatsScreen(foodViewModel: FoodViewModel, repository: MainRepository) {
                         }
                     }
                 } else {
-                    Text(text = emptyMessage)
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(emptyLogsListResult),
+                            fontSize = 20.sp,
+                            modifier = Modifier
+                                .width(300.dp)
+                                .padding(bottom = 30.dp)
+                        )
+                    }
                 }
 
         } else if(chosenTab == R.string.drinks) {
-            DeterminateProgressWithText(
-                stringResource(R.string.water),
-                foodViewModel.waterProgress,
-                WaterColor,
-                modifier = Modifier.size(100.dp)
-            )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    DeterminateProgressWithText(
+                        stringResource(R.string.liquid_level),
+                        foodViewModel.waterProgress,
+                        WaterColor,
+                        modifier = Modifier.size(150.dp)
+                    )
+                }
+            }
         } else if(chosenTab == R.string.bccu) {
             Column(
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
