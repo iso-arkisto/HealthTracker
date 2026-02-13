@@ -73,7 +73,7 @@
     <string name="calories_goal">Цель по калориям в день</string>
     <string name="food">Еда</string>
     <string name="drinks">Напитки</string>
-    <string name="how_food">Объём порции (граммы)</string>
+    <string name="serving_size">Объём порции (г/мл)</string>
     <string name="add">Добавить</string>
     <string name="protein">Белки</string>
     <string name="fats">Жиры</string>
@@ -224,4 +224,11 @@
     <string name="empty_logs_list_friendly">Пора добавить первый прием пищи, чтобы день был продуктивным!</string>
     <string name="empty_logs_list_motivate">Записывайте всё, что едите, чтобы достичь цели быстрее.</string>
     <string name="empty_logs_list_playful">Ваш трекер скучает по калориям. Может, время перекусить?</string>
+    <string name="search_products">Поиск продуктов...</string>
+    <string name="clear">Очистить</string>
+    <string name="search">Поиск</string>
+    <string name="start_search_friendly">Что вкусного сегодня в меню?</string>
+    <string name="start_search_motivating">Пора записать новые достижения!</string>
+    <string name="start_search_playful">Чем сегодня полакомимся?</string>
+    <string name="product">Продукт</string>
 </resources>
