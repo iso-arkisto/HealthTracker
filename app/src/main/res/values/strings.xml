@@ -72,7 +72,7 @@
     <string name="calories_goal">Calorie per day goal</string>
     <string name="food">Food</string>
     <string name="drinks">Drinks</string>
-    <string name="how_food">Serving size (grams)</string>
+    <string name="serving_size">Serving size (g/ml)</string>
     <string name="add">Add</string>
     <string name="protein">Protein</string>
     <string name="fats">Fats</string>
@@ -223,5 +223,13 @@
     <string name="empty_logs_list_friendly">Time to log your first meal for a productive day ahead!</string>
     <string name="empty_logs_list_motivate">Track everything you eat to reach your goals faster.</string>
     <string name="empty_logs_list_playful">Your tracker is craving some calories. Maybe it is time for a snack?</string>
+    <string name="search_products">Search products...</string>
+    <string name="clear">Clear</string>
+    <string name="search">Search</string>
+    <string name="start_search_friendly">What\'s on the menu today?</string>
+    <string name="start_search_motivating">Time to fuel your goals!</string>
+    <string name="start_search_playful">Ready for a tasty entry?</string>
+    <string name="product">Product</string>
+
 
 </resources>
