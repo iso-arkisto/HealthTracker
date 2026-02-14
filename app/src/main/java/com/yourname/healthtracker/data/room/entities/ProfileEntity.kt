@@ -6,6 +6,7 @@ import com.yourname.healthtracker.R
 import com.yourname.healthtracker.data.classes.ActivityLevel
 import com.yourname.healthtracker.data.classes.FitnessGoal
 import com.yourname.healthtracker.data.classes.FoodLog
+import java.util.Collections.emptyList
 
 @Entity(tableName = "profile_table")
 data class UserProfile(
@@ -15,5 +16,6 @@ data class UserProfile(
     var age: Int = 25,
     var gender: Int = R.string.male,
     var activityLevel: ActivityLevel = ActivityLevel.MODERATE,
-    var fitnessGoal: FitnessGoal = FitnessGoal.MAINTENANCE
+    var fitnessGoal: FitnessGoal = FitnessGoal.MAINTENANCE,
+    var recentProducts: MutableList<Int> = emptyList()
 )

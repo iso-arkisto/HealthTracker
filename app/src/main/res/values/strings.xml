@@ -230,6 +230,7 @@
     <string name="start_search_motivating">Time to fuel your goals!</string>
     <string name="start_search_playful">Ready for a tasty entry?</string>
     <string name="product">Product</string>
+    <string name="recent_products">Recent products</string>
 
 
 </resources>
