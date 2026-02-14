@@ -36,4 +36,24 @@ class ProfileViewModel @Inject constructor(
             profileRepository.insertItem(profile)
         }
     }
+
+    fun addRecentProduct(id: Int) {
+        val profile = _userProfile.value
+        val newList = profile.recentProducts.toMutableList()
+
+        if(newList.contains(id)) {
+            newList.removeAll(listOf(id))
+        }
+
+        newList.add(0, id)
+        newList.take(10)
+
+        _userProfile.value = profile.copy(
+            recentProducts = newList
+        )
+
+        viewModelScope.launch {
+            profileRepository.insertItem(userProfile.value)
+        }
+    }
 }

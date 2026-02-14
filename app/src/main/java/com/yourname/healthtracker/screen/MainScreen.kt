@@ -29,7 +29,9 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -47,13 +49,18 @@ import com.yourname.healthtracker.data.classes.CalorieCalculator
 import com.yourname.healthtracker.data.classes.FoodType
 import com.yourname.healthtracker.data.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
+import com.yourname.healthtracker.data.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.ui.components.MenuTitle
 import com.yourname.healthtracker.ui.components.NutritionCard
 import com.yourname.healthtracker.ui.components.SearchBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
+fun MainScreen(
+    foodVM: FoodViewModel,
+    repository: MainRepository,
+    profileVM: ProfileViewModel
+) {
 
     var searchQuery by remember {
         mutableStateOf("")
@@ -70,12 +77,18 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
         mutableIntStateOf(R.string.food)
     }
 
+    val userProfile by profileVM.userProfile.collectAsState()
+
     val startSearchTexts = listOf(
         R.string.start_search_friendly,
         R.string.start_search_motivating,
         R.string.start_search_playful,
     )
     val startSearchResult = startSearchTexts.random()
+
+    LaunchedEffect(Unit) {
+        servingSize.value = foodVM.foodAddValue.toString()
+    }
 
     Column(
         modifier = Modifier
@@ -114,7 +127,7 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                 }
                 Spacer(modifier = Modifier.height(15.dp))
 
-                if (searchQuery.isEmpty()) {
+                if(searchQuery.isBlank() && userProfile.recentProducts.isEmpty()) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -128,31 +141,45 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                         )
                     }
                 } else {
+
+                    if(searchQuery.isBlank()) {
+                        Text(
+                            text = stringResource(R.string.recent_products),
+                            fontSize = 22.sp
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(start = 15.dp)
+                            .padding(start = 10.dp)
                     ) {
                         items(
-                            repository.getAllFood(
-                            type = if (chosenTab == R.string.food) {
-                                FoodType.FOOD
+                            if(searchQuery.isNotBlank()) {
+                                repository.getAllFood(
+                                    type = if (chosenTab == R.string.food) {
+                                        FoodType.FOOD
+                                    } else {
+                                        FoodType.DRINK
+                                    }
+                                ).filter { food ->
+                                    context.getString(food.name).contains(searchQuery, ignoreCase = true)
+                                }.take(10)
                             } else {
-                                FoodType.DRINK
+                                userProfile.recentProducts.mapNotNull { id ->
+                                    repository.findFoodById(id)
+                                }
                             }
-                        ).filter { food ->
-                            context.getString(food.name).contains(searchQuery, ignoreCase = true)
-                        }.take(10)
                         ) { food ->
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clip(RoundedCornerShape(24.dp))
-                                    .background(MaterialTheme.colorScheme.onSecondary)
-                                    .padding(top = 7.dp)
+//                                    .background(MaterialTheme.colorScheme.onSecondary)
+                                    .padding(top = 10.dp)
                                     .clickable {
                                         chosenFood.value = food.id
-                                        Log.d("", "NEW FOOD: ${chosenFood.value == null}")
                                     }
                             ) {
                                 Text(
@@ -195,6 +222,7 @@ fun MainScreen(foodVM: FoodViewModel, repository: MainRepository) {
                     Button(
                         onClick = {
                             foodVM.addFood(chosenFood.value!!, foodVM.foodAddValue)
+                            profileVM.addRecentProduct(chosenFood.value!!)
                         },
                         modifier = Modifier
                             .padding(end = 10.dp, top = 10.dp)
