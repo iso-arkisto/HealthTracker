@@ -231,6 +231,11 @@
     <string name="start_search_playful">Ready for a tasty entry?</string>
     <string name="product">Product</string>
     <string name="recent_products">Recent products</string>
+    <string name="activity_tab">Activity &amp; Movement</string>
+    <string name="sleep_tab">Sleep &amp; Recovery</string>
+    <string name="nutrition_tab">Nutrition &amp; Hydration</string>
+    <string name="mental_tab">Mental Well-being</string>
+    <string name="section_development">This section is under development</string>
 
 
 </resources>

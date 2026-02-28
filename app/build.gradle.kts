@@ -16,8 +16,8 @@ android {
         applicationId = "com.yourname.healthtracker"
         minSdk = 24
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.21"
+        versionCode = 4
+        versionName = "1.22"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
