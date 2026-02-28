@@ -232,4 +232,9 @@
     <string name="start_search_playful">Чем сегодня полакомимся?</string>
     <string name="product">Продукт</string>
     <string name="recent_products">Недавние продукты</string>
+    <string name="activity_tab">Активность и движение</string>
+    <string name="sleep_tab">Сон и восстановление</string>
+    <string name="nutrition_tab">Питание и гидратация</string>
+    <string name="mental_tab">Ментальное состояние</string>
+    <string name="section_development">Этот раздел находится в разработке</string>
 </resources>
