@@ -6,25 +6,26 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import com.yourname.healthtracker.data.repository.DaysRepository
-import com.yourname.healthtracker.data.viewmodel.FoodViewModel
+import com.yourname.healthtracker.presentation.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.data.repository.ProfileRepository
-import com.yourname.healthtracker.data.room.AppDatabase
-import com.yourname.healthtracker.data.room.dao.DaysDao
-import com.yourname.healthtracker.data.room.dao.UserProfileDao
-import com.yourname.healthtracker.data.viewmodel.ProfileViewModel
+import com.yourname.healthtracker.data.local.AppDatabase
+import com.yourname.healthtracker.data.local.dao.DaysDao
+import com.yourname.healthtracker.data.local.dao.UserProfileDao
+import com.yourname.healthtracker.presentation.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.di.AppModule
-import com.yourname.healthtracker.screen.MainScreen
-import com.yourname.healthtracker.screen.SettingsScreen
-import com.yourname.healthtracker.screen.StatsScreen
-import com.yourname.healthtracker.ui.components.BottomNavigationBar
-import com.yourname.healthtracker.ui.components.Screen
+import com.yourname.healthtracker.presentation.screen.MainScreen
+import com.yourname.healthtracker.presentation.screen.SettingsScreen
+import com.yourname.healthtracker.presentation.screen.StatsScreen
+import com.yourname.healthtracker.presentation.components.BottomNavigationBar
+import com.yourname.healthtracker.presentation.components.Screen
 import com.yourname.healthtracker.ui.theme.HealthTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,8 +47,11 @@ class MainActivity : ComponentActivity() {
                 val repository: MainRepository = AppModule.provideMainRepository()
                 val daysRepository: DaysRepository = AppModule.provideDaysRepository(daysDao)
                 val profileRepository: ProfileRepository = AppModule.provideProfileRepository(userProfileDao)
+
                 foodVM.loadDay(repository.getCurrentDate())
-                profileVM.loadProfile()
+                LaunchedEffect(Unit) {
+                    profileVM.loadProfile()
+                }
 
                 Scaffold(
                     bottomBar = {
@@ -60,7 +64,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(route = Screen.Home.route) {
-                            MainScreen(foodVM, repository)
+                            MainScreen(foodVM, repository, profileVM)
                         }
                         composable(route = Screen.Stats.route) {
                             StatsScreen(foodVM, repository)

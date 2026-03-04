@@ -72,7 +72,7 @@
     <string name="calories_goal">Calorie per day goal</string>
     <string name="food">Food</string>
     <string name="drinks">Drinks</string>
-    <string name="how_food">Serving size (grams)</string>
+    <string name="serving_size">Serving size (g/ml)</string>
     <string name="add">Add</string>
     <string name="protein">Protein</string>
     <string name="fats">Fats</string>
@@ -218,4 +218,24 @@
     <string name="fats_goal">Daily portion of fat (in grams)</string>
     <string name="recommended">Recommended</string>
     <string name="set_goals">Set your daily goals</string>
+    <string name="energy_per_grams">per %1$d grams</string>
+    <string name="liquid_level">Fluid level</string>
+    <string name="empty_logs_list_friendly">Time to log your first meal for a productive day ahead!</string>
+    <string name="empty_logs_list_motivate">Track everything you eat to reach your goals faster.</string>
+    <string name="empty_logs_list_playful">Your tracker is craving some calories. Maybe it is time for a snack?</string>
+    <string name="search_products">Search products...</string>
+    <string name="clear">Clear</string>
+    <string name="search">Search</string>
+    <string name="start_search_friendly">What\'s on the menu today?</string>
+    <string name="start_search_motivating">Time to fuel your goals!</string>
+    <string name="start_search_playful">Ready for a tasty entry?</string>
+    <string name="product">Product</string>
+    <string name="recent_products">Recent products</string>
+    <string name="activity_tab">Activity &amp; Movement</string>
+    <string name="sleep_tab">Sleep &amp; Recovery</string>
+    <string name="nutrition_tab">Nutrition &amp; Hydration</string>
+    <string name="mental_tab">Mental Well-being</string>
+    <string name="section_development">This section is under development</string>
+
+
 </resources>

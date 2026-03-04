@@ -3,24 +3,14 @@ package com.yourname.healthtracker.data.repository
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.classes.Food
-import com.yourname.healthtracker.data.classes.FoodType
-import com.yourname.healthtracker.data.room.dao.DaysDao
-import com.yourname.healthtracker.data.room.dao.UserProfileDao
-import com.yourname.healthtracker.data.room.entities.FoodDay
-import com.yourname.healthtracker.data.room.entities.UserProfile
+import com.yourname.healthtracker.domain.Food
+import com.yourname.healthtracker.domain.FoodType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(): MainRepository {
-    private val foodList = listOf<Food>(
-//        Food(1, R.string.water,"drink",0.0,0.0,0.0,0.0),
-//        Food(2,R.string.apple,"food",52.0,0.25,13.8,0.15),
-//        Food(3, R.string.banana, "food", 89.0,1.1,22.8,0.3),
-//        Food(4, "raw potato", "food", 77.0, 2.0, 17.5, 0.1),
-//        Food(5, "raw carrot", "food", 41.0, 0.9, 9.6, 0.2),
-//        Food(6, "tangerine", "food", 53.0, 0.8, 13.3, 0.3),
+    private val foodList = listOf(
 
         Food(1, R.string.water_plain, FoodType.DRINK, 0.0, 0.0, 0.0, 0.0, icon = "💧"),
         Food(2, R.string.water_mineral, FoodType.DRINK, 0.0, 0.0, 0.0, 0.0, icon = "💧"),
@@ -125,7 +115,7 @@ class MainRepositoryImpl @Inject constructor(): MainRepository {
         Food(104, R.string.orange, FoodType.FOOD, 47.0, 0.9, 0.1, 11.8, icon = "🍊"),
         Food(105, R.string.mandarin, FoodType.FOOD, 53.0, 0.8, 0.3, 13.3, icon = "🍊"),
         Food(106, R.string.lemon, FoodType.FOOD, 29.0, 1.1, 0.3, 9.3, icon = "🍋"),
-        Food(107, R.string.grapefruit, FoodType.FOOD, 42.0, 0.8, 0.1, 10.7),
+        Food(107, R.string.grapefruit, FoodType.FOOD, 42.0, 0.8, 0.1, 10.7, icon = "🍊"),
         Food(108, R.string.pear, FoodType.FOOD, 57.0, 0.4, 0.1, 15.2, icon = "🍐"),
         Food(109, R.string.peach, FoodType.FOOD, 39.0, 0.9, 0.3, 9.5, icon = "🍑"),
         Food(110, R.string.apricot, FoodType.FOOD, 48.0, 1.4, 0.4, 11.1),
@@ -137,10 +127,10 @@ class MainRepositoryImpl @Inject constructor(): MainRepository {
         Food(116, R.string.blackberry, FoodType.FOOD, 43.0, 1.4, 0.5, 9.6),
         Food(117, R.string.grape, FoodType.FOOD, 69.0, 0.7, 0.2, 18.0, icon = "🍇"),
         Food(118, R.string.watermelon, FoodType.FOOD, 30.0, 0.6, 0.2, 7.6, icon = "🍉"),
-        Food(119, R.string.melon, FoodType.FOOD, 34.0, 0.8, 0.2, 8.2),
-        Food(120, R.string.pineapple, FoodType.FOOD, 50.0, 0.5, 0.1, 13.1),
-        Food(121, R.string.mango, FoodType.FOOD, 60.0, 0.8, 0.4, 15.0),
-        Food(122, R.string.kiwi, FoodType.FOOD, 61.0, 1.1, 0.5, 14.7),
+        Food(119, R.string.melon, FoodType.FOOD, 34.0, 0.8, 0.2, 8.2, icon = "🍈"),
+        Food(120, R.string.pineapple, FoodType.FOOD, 50.0, 0.5, 0.1, 13.1, icon = "🍍"),
+        Food(121, R.string.mango, FoodType.FOOD, 60.0, 0.8, 0.4, 15.0, icon = "🥭"),
+        Food(122, R.string.kiwi, FoodType.FOOD, 61.0, 1.1, 0.5, 14.7, icon = "🥝"),
         Food(123, R.string.pomegranate, FoodType.FOOD, 83.0, 1.7, 1.2, 18.7),
         Food(124, R.string.avocado, FoodType.FOOD, 160.0, 2.0, 14.7, 8.5, icon = "🥑"),
 //
@@ -178,10 +168,10 @@ class MainRepositoryImpl @Inject constructor(): MainRepository {
         Food(153, R.string.honey, FoodType.FOOD, 304.0, 0.3, 0.0, 82.4, icon = "🍯"),
         Food(154, R.string.sugar, FoodType.FOOD, 387.0, 0.0, 0.0, 99.8),
         Food(155, R.string.jam, FoodType.FOOD, 250.0, 0.4, 0.1, 62.0),
-        Food(156, R.string.potato_chips, FoodType.FOOD, 536.0, 6.6, 34.0, 53.0),
-        Food(157, R.string.popcorn, FoodType.FOOD, 375.0, 12.0, 4.2, 77.0),
-        Food(158, R.string.cookies, FoodType.FOOD, 450.0, 6.0, 18.0, 65.0),
-        Food(159, R.string.cake_chocolate, FoodType.FOOD, 370.0, 5.0, 15.0, 55.0),
+        Food(156, R.string.potato_chips, FoodType.FOOD, 536.0, 6.6, 34.0, 53.0, icon = "🍟"),
+        Food(157, R.string.popcorn, FoodType.FOOD, 375.0, 12.0, 4.2, 77.0, icon = "🍿"),
+        Food(158, R.string.cookies, FoodType.FOOD, 450.0, 6.0, 18.0, 65.0, icon = "🍪"),
+        Food(159, R.string.cake_chocolate, FoodType.FOOD, 370.0, 5.0, 15.0, 55.0, icon = "🎂"),
 
         Food(160, R.string.porridge_milk, FoodType.FOOD, 120.0, 4.5, 3.5, 18.0, icon = "🥣"),
         Food(161, R.string.scrambled_eggs, FoodType.FOOD, 180.0, 12.0, 14.0, 1.0, icon = "🥚"),
@@ -212,8 +202,4 @@ class MainRepositoryImpl @Inject constructor(): MainRepository {
             it.type == type
         }
     }
-
-
-
-
 }
