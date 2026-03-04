@@ -1,8 +1,8 @@
-package com.yourname.healthtracker.data.room.entities
+package com.yourname.healthtracker.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.yourname.healthtracker.data.classes.FoodLog
+import com.yourname.healthtracker.domain.FoodLog
 
 @Entity(tableName = "days_table")
 data class FoodDay(

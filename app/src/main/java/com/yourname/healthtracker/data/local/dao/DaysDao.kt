@@ -1,11 +1,11 @@
-package com.yourname.healthtracker.data.room.dao
+package com.yourname.healthtracker.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.yourname.healthtracker.data.room.entities.FoodDay
+import com.yourname.healthtracker.data.local.entities.FoodDay
 import kotlinx.coroutines.flow.Flow
 
 @Dao

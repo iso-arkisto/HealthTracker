@@ -1,15 +1,12 @@
-package com.yourname.healthtracker.data.viewmodel
+package com.yourname.healthtracker.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.data.repository.ProfileRepository
-import com.yourname.healthtracker.data.room.dao.UserProfileDao
-import com.yourname.healthtracker.data.room.entities.FoodDay
-import com.yourname.healthtracker.data.room.entities.UserProfile
+import com.yourname.healthtracker.data.local.entities.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,14 +43,15 @@ class ProfileViewModel @Inject constructor(
         }
 
         newList.add(0, id)
-        newList.take(10)
+        val limitedList = newList.take(10).toMutableList()
 
-        _userProfile.value = profile.copy(
-            recentProducts = newList
+        val profileToSet = profile.copy(
+            recentProducts = limitedList
         )
+        _userProfile.value = profileToSet
 
         viewModelScope.launch {
-            profileRepository.insertItem(userProfile.value)
+            profileRepository.insertItem(profileToSet)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.yourname.healthtracker.ui.components
+package com.yourname.healthtracker.presentation.components
 
 import android.R
 import androidx.compose.ui.graphics.vector.ImageVector

@@ -1,7 +1,6 @@
-package com.yourname.healthtracker.ui.components
+package com.yourname.healthtracker.presentation.components
 
 import com.yourname.healthtracker.R
-import android.provider.Settings.Global.getString
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info

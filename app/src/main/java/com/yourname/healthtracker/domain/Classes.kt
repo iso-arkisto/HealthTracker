@@ -1,4 +1,4 @@
-package com.yourname.healthtracker.data.classes
+package com.yourname.healthtracker.domain
 
 import com.yourname.healthtracker.R
 import java.util.UUID

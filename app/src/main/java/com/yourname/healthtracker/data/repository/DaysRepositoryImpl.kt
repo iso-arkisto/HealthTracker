@@ -1,7 +1,7 @@
 package com.yourname.healthtracker.data.repository
 
-import com.yourname.healthtracker.data.room.dao.DaysDao
-import com.yourname.healthtracker.data.room.entities.FoodDay
+import com.yourname.healthtracker.data.local.dao.DaysDao
+import com.yourname.healthtracker.data.local.entities.FoodDay
 import kotlinx.coroutines.flow.Flow
 
 class DaysRepositoryImpl(

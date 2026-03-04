@@ -1,4 +1,4 @@
-package com.yourname.healthtracker.screen
+package com.yourname.healthtracker.presentation.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -32,13 +32,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.classes.ActivityLevel
-import com.yourname.healthtracker.data.classes.CalorieCalculator
-import com.yourname.healthtracker.data.classes.FitnessGoal
-import com.yourname.healthtracker.data.viewmodel.FoodViewModel
-import com.yourname.healthtracker.data.viewmodel.ProfileViewModel
-import com.yourname.healthtracker.ui.components.MenuTab
-import com.yourname.healthtracker.ui.components.MenuTitle
+import com.yourname.healthtracker.domain.ActivityLevel
+import com.yourname.healthtracker.domain.CalorieCalculator
+import com.yourname.healthtracker.domain.FitnessGoal
+import com.yourname.healthtracker.presentation.viewmodel.FoodViewModel
+import com.yourname.healthtracker.presentation.viewmodel.ProfileViewModel
+import com.yourname.healthtracker.presentation.components.MenuTab
+import com.yourname.healthtracker.presentation.components.MenuTitle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,7 +1,6 @@
 package com.yourname.healthtracker.data.repository
 
-import com.yourname.healthtracker.data.room.entities.FoodDay
-import com.yourname.healthtracker.data.room.entities.UserProfile
+import com.yourname.healthtracker.data.local.entities.UserProfile
 import kotlinx.coroutines.flow.Flow
 
 interface ProfileRepository {

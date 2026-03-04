@@ -1,10 +1,10 @@
-package com.yourname.healthtracker.data.room.converters
+package com.yourname.healthtracker.data.local.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.yourname.healthtracker.data.classes.ActivityLevel
-import com.yourname.healthtracker.data.classes.FitnessGoal
+import com.yourname.healthtracker.domain.ActivityLevel
+import com.yourname.healthtracker.domain.FitnessGoal
 
 class ProfileConverters {
     @TypeConverter

@@ -8,9 +8,9 @@ import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.data.repository.MainRepositoryImpl
 import com.yourname.healthtracker.data.repository.ProfileRepository
 import com.yourname.healthtracker.data.repository.ProfileRepositoryImpl
-import com.yourname.healthtracker.data.room.AppDatabase
-import com.yourname.healthtracker.data.room.dao.DaysDao
-import com.yourname.healthtracker.data.room.dao.UserProfileDao
+import com.yourname.healthtracker.data.local.AppDatabase
+import com.yourname.healthtracker.data.local.dao.DaysDao
+import com.yourname.healthtracker.data.local.dao.UserProfileDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
