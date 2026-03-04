@@ -1,4 +1,4 @@
-package com.yourname.healthtracker.ui.components
+package com.yourname.healthtracker.presentation.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.classes.Food
+import com.yourname.healthtracker.domain.Food
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.sp
@@ -143,7 +143,7 @@ private fun MacrosSection(protein: Double, fats: Double, carbs: Double) {
 }
 
 @Composable
-private fun NutrientItem(value: Double, label: String, unit: String, color: androidx.compose.ui.graphics.Color) {
+private fun NutrientItem(value: Double, label: String, unit: String, color: Color) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = value.toString(),
@@ -291,7 +291,7 @@ private fun MacroLegend(protein: Double, fats: Double, carbs: Double, total: Dou
 }
 
 @Composable
-private fun LegendItem(color: androidx.compose.ui.graphics.Color, label: String, value: Double, percentage: Int) {
+private fun LegendItem(color: Color, label: String, value: Double, percentage: Int) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier

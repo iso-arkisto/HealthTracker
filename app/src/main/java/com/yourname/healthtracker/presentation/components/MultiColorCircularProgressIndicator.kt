@@ -1,4 +1,4 @@
-package com.yourname.healthtracker.ui.components
+package com.yourname.healthtracker.presentation.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable

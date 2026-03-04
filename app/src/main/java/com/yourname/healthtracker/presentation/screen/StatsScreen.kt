@@ -1,4 +1,4 @@
-package com.yourname.healthtracker.screen
+package com.yourname.healthtracker.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,12 +30,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.classes.Food
-import com.yourname.healthtracker.data.classes.FoodType
-import com.yourname.healthtracker.data.viewmodel.FoodViewModel
+import com.yourname.healthtracker.domain.Food
+import com.yourname.healthtracker.domain.FoodType
+import com.yourname.healthtracker.presentation.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
-import com.yourname.healthtracker.ui.components.DeterminateProgressWithText
-import com.yourname.healthtracker.ui.components.FoodLogCard
+import com.yourname.healthtracker.presentation.components.DeterminateProgressWithText
+import com.yourname.healthtracker.presentation.components.FoodLogCard
 import com.yourname.healthtracker.ui.theme.FoodColor
 import com.yourname.healthtracker.ui.theme.WaterColor
 import java.text.SimpleDateFormat

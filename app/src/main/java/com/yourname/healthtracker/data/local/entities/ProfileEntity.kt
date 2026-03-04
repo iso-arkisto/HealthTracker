@@ -1,11 +1,10 @@
-package com.yourname.healthtracker.data.room.entities
+package com.yourname.healthtracker.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.classes.ActivityLevel
-import com.yourname.healthtracker.data.classes.FitnessGoal
-import com.yourname.healthtracker.data.classes.FoodLog
+import com.yourname.healthtracker.domain.ActivityLevel
+import com.yourname.healthtracker.domain.FitnessGoal
 import java.util.Collections.emptyList
 
 @Entity(tableName = "profile_table")

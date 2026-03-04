@@ -1,10 +1,7 @@
-package com.yourname.healthtracker.screen
+package com.yourname.healthtracker.presentation.screen
 
-import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,19 +16,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -42,20 +32,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.classes.CalorieCalculator
-import com.yourname.healthtracker.data.classes.FoodType
-import com.yourname.healthtracker.data.viewmodel.FoodViewModel
+import com.yourname.healthtracker.domain.FoodType
+import com.yourname.healthtracker.presentation.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
-import com.yourname.healthtracker.data.viewmodel.ProfileViewModel
-import com.yourname.healthtracker.ui.components.MainScreenTab
-import com.yourname.healthtracker.ui.components.MenuTitle
-import com.yourname.healthtracker.ui.components.NutritionCard
-import com.yourname.healthtracker.ui.components.SearchBar
+import com.yourname.healthtracker.presentation.viewmodel.ProfileViewModel
+import com.yourname.healthtracker.presentation.components.MainScreenTab
+import com.yourname.healthtracker.presentation.components.MenuTitle
+import com.yourname.healthtracker.presentation.components.NutritionCard
+import com.yourname.healthtracker.presentation.components.SearchBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

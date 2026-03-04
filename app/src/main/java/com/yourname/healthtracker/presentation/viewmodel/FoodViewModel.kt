@@ -1,4 +1,4 @@
-package com.yourname.healthtracker.data.viewmodel
+package com.yourname.healthtracker.presentation.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -6,18 +6,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yourname.healthtracker.data.classes.FoodLog
-import com.yourname.healthtracker.data.classes.FoodType
+import com.yourname.healthtracker.domain.FoodLog
+import com.yourname.healthtracker.domain.FoodType
 import com.yourname.healthtracker.data.repository.DaysRepository
 import com.yourname.healthtracker.data.repository.MainRepository
-import com.yourname.healthtracker.data.room.AppDatabase
-import com.yourname.healthtracker.data.room.dao.DaysDao
-import com.yourname.healthtracker.data.room.entities.FoodDay
+import com.yourname.healthtracker.data.local.entities.FoodDay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.collections.plus

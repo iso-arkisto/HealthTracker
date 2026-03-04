@@ -1,7 +1,7 @@
-package com.yourname.healthtracker.data.classes
+package com.yourname.healthtracker.domain
 
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.room.entities.UserProfile
+import com.yourname.healthtracker.data.local.entities.UserProfile
 
 class CalorieCalculator {
 

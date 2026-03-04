@@ -2,14 +2,9 @@ package com.yourname.healthtracker.data.repository
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.res.stringResource
 import com.yourname.healthtracker.R
-import com.yourname.healthtracker.data.classes.Food
-import com.yourname.healthtracker.data.classes.FoodType
-import com.yourname.healthtracker.data.room.dao.DaysDao
-import com.yourname.healthtracker.data.room.dao.UserProfileDao
-import com.yourname.healthtracker.data.room.entities.FoodDay
-import com.yourname.healthtracker.data.room.entities.UserProfile
+import com.yourname.healthtracker.domain.Food
+import com.yourname.healthtracker.domain.FoodType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
