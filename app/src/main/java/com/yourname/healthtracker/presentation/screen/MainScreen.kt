@@ -132,7 +132,7 @@ fun MainScreen(
                   }
                   Spacer(modifier = Modifier.height(15.dp))
 
-                  if(searchQuery.isBlank() && userProfile.recentProducts.isEmpty()) {
+                  if (searchQuery.isBlank() && userProfile.recentProducts.isEmpty()) {
                       Box(
                           modifier = Modifier.fillMaxSize(),
                           contentAlignment = Alignment.Center
@@ -147,7 +147,7 @@ fun MainScreen(
                       }
                   } else {
 
-                      if(searchQuery.isBlank()) {
+                      if (searchQuery.isBlank()) {
                           Text(
                               text = stringResource(R.string.recent_products),
                               fontSize = 22.sp
@@ -161,7 +161,7 @@ fun MainScreen(
                               .padding(start = 10.dp)
                       ) {
                           items(
-                              if(searchQuery.isNotBlank()) {
+                              if (searchQuery.isNotBlank()) {
                                   repository.getAllFood(
                                       type = if (chosenTab == R.string.food) {
                                           FoodType.FOOD
@@ -169,7 +169,8 @@ fun MainScreen(
                                           FoodType.DRINK
                                       }
                                   ).filter { food ->
-                                      context.getString(food.name).contains(searchQuery, ignoreCase = true)
+                                      context.getString(food.name)
+                                          .contains(searchQuery, ignoreCase = true)
                                   }.take(10)
                               } else {
                                   userProfile.recentProducts.mapNotNull { id ->
@@ -207,7 +208,7 @@ fun MainScreen(
                       value = servingSize.value,
                       onValueChange = {
                           servingSize.value = it
-                          if(servingSize.value.toIntOrNull()!=null) {
+                          if (servingSize.value.toIntOrNull() != null) {
                               foodVM.foodAddValue = it.toInt()
                           } else {
                               foodVM.foodAddValue = 0
@@ -218,7 +219,7 @@ fun MainScreen(
                       modifier = Modifier.width(150.dp)
 
                   )
-                  if(foodVM.foodAddValue in 1..10000) {
+                  if (foodVM.foodAddValue in 1..10000) {
                       Spacer(modifier = Modifier.height(5.dp))
                       NutritionCard(
                           food = repository.findFoodById(chosenFood.value!!)!!,
@@ -239,6 +240,8 @@ fun MainScreen(
                       }
                   }
               }
+          } else if(currentTab == R.string.sleep_tab) {
+
           } else {
               allTabs.keys.forEach {
                   textId ->

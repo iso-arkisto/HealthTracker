@@ -236,6 +236,13 @@
     <string name="nutrition_tab">Nutrition &amp; Hydration</string>
     <string name="mental_tab">Mental Well-being</string>
     <string name="section_development">This section is under development</string>
+    <string name="light_dark_cycle">Light-dark cycle</string>
+    <string name="circadian_rhythm">Circadian rhythm</string>
+    <string name="actual_sleep">Actual sleep</string>
+    <string name="last_night_sleep">Last night\'s sleep</string>
+    <string name="alignment">Alignment</string>
+    <string name="consistency">Consistency</string>
+    <string name="high">High</string>
 
 
 </resources>
