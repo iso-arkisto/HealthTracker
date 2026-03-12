@@ -237,4 +237,14 @@
     <string name="nutrition_tab">Питание и гидратация</string>
     <string name="mental_tab">Ментальное состояние</string>
     <string name="section_development">Этот раздел находится в разработке</string>
+    <string name="light_dark_cycle">Световой цикл</string>
+    <string name="circadian_rhythm">Циркадный ритм</string>
+    <string name="actual_sleep">Фактический сон</string>
+    <string name="last_night_sleep">Сон за прошлую ночь</string>
+    <string name="alignment">Соответствие</string>
+    <string name="consistency">Стабильность</string>
+    <string name="high">Высокий</string>
+    <string name="sleep_window">Окно сна</string>
+    <string name="duration_time">%1$d ч %2$d м</string>
+
 </resources>
