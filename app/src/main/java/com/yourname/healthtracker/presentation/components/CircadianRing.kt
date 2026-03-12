@@ -35,15 +35,14 @@ fun CircadianRing(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF0D1117)),
+            .size(280.dp),
         contentAlignment = Alignment.Center
     ) {
-        Canvas(modifier = Modifier.size(320.dp)) {
+        Canvas(modifier = Modifier.size(250.dp)) {
             val center = Offset(size.width / 2, size.height / 2)
             val outerRadius = size.width / 2
-            val innerRingRadius = outerRadius - 45.dp.toPx()
-            val strokeWidth = 14.dp.toPx()
+            val innerRingRadius = outerRadius - 25.dp.toPx()
+            val strokeWidth = 10.dp.toPx()
 
             val orangeColor = Color(0xFFFF9800)
             val blueColor = Color(0xFF3F51B5)
@@ -107,25 +106,32 @@ fun CircadianRing(
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Column(
-                modifier = Modifier.offset(y = (-110).dp),
+                modifier = Modifier.offset(y = (-100).dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(stringResource(R.string.light_dark_cycle).uppercase(), color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.light_dark_cycle).uppercase(), fontSize = 14.sp, fontWeight = FontWeight.Bold)
                 Text(stringResource(R.string.circadian_rhythm).capitalize(), color = Color.Gray, fontSize = 12.sp)
             }
 
+//            Column(
+//                modifier = Modifier.offset(y = (-20).dp),
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                Text(stringResource(R.string.actual_sleep).uppercase(), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+//                Text(stringResource(R.string.last_night_sleep).capitalize(), color = Color.Gray, fontSize = 10.sp)
+//            }
+
             Column(
-                modifier = Modifier.offset(y = (-30).dp),
+                modifier = Modifier.offset(y = (-25).dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(stringResource(R.string.actual_sleep).uppercase(), color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                Text(stringResource(R.string.last_night_sleep).capitalize(), color = Color.Gray, fontSize = 12.sp)
+                Text(stringResource(R.string.alignment).uppercase()+":", color = Color.Gray, fontSize = 14.sp)
+                Text("$alignmentScore%", fontSize = 44.sp, fontWeight = FontWeight.ExtraBold)
+                Text(stringResource(R.string.consistency).uppercase()+":", color = Color.Gray, fontSize = 14.sp)
+                Text(stringResource(consistency).uppercase(), fontSize = 22.sp, fontWeight = FontWeight.Bold)
             }
 
-            Text(stringResource(R.string.alignment).uppercase()+":", color = Color.Gray, fontSize = 12.sp)
-            Text("$alignmentScore%", color = Color.White, fontSize = 56.sp, fontWeight = FontWeight.ExtraBold)
-            Text(stringResource(R.string.consistency).uppercase()+":", color = Color.Gray, fontSize = 12.sp)
-            Text(stringResource(consistency).uppercase(), color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+
 
 
         }

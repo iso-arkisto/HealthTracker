@@ -1,5 +1,6 @@
 package com.yourname.healthtracker.presentation.screen
 
+import android.provider.Settings.Global.getString
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -39,11 +40,13 @@ import com.yourname.healthtracker.R
 import com.yourname.healthtracker.domain.FoodType
 import com.yourname.healthtracker.presentation.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
+import com.yourname.healthtracker.presentation.components.CircadianRing
 import com.yourname.healthtracker.presentation.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.presentation.components.MainScreenTab
 import com.yourname.healthtracker.presentation.components.MenuTitle
 import com.yourname.healthtracker.presentation.components.NutritionCard
 import com.yourname.healthtracker.presentation.components.SearchBar
+import com.yourname.healthtracker.presentation.components.SleepWindowWidget
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

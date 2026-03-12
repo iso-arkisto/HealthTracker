@@ -244,4 +244,7 @@
     <string name="alignment">Соответствие</string>
     <string name="consistency">Стабильность</string>
     <string name="high">Высокий</string>
+    <string name="sleep_window">Окно сна</string>
+    <string name="duration_time">%1$d ч %2$d м</string>
+
 </resources>
