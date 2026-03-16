@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -70,7 +71,7 @@ fun SleepWindowWidget(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "SLEEP\nWINDOW",
+            text = stringResource(R.string.sleep_window).uppercase(),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 22.sp,

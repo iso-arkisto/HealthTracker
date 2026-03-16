@@ -3,6 +3,7 @@ package com.yourname.healthtracker.presentation.screen
 import android.provider.Settings.Global.getString
 import android.widget.Toast
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,6 +42,7 @@ import com.yourname.healthtracker.domain.FoodType
 import com.yourname.healthtracker.presentation.viewmodel.FoodViewModel
 import com.yourname.healthtracker.data.repository.MainRepository
 import com.yourname.healthtracker.presentation.components.CircadianRing
+import com.yourname.healthtracker.presentation.components.HRVWidget
 import com.yourname.healthtracker.presentation.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.presentation.components.MainScreenTab
 import com.yourname.healthtracker.presentation.components.MenuTitle
@@ -244,15 +246,33 @@ fun MainScreen(
                   }
               }
           } else if(currentTab == R.string.sleep_tab) {
-
+              Spacer(modifier = Modifier.height(50.dp))
+              CircadianRing()
+              Row(
+                  modifier = Modifier.fillMaxWidth(),
+                  horizontalArrangement = Arrangement.Center
+              ) {
+                  SleepWindowWidget(
+                      wakeUpTime = "6:20",
+                      bedTime = "23:20",
+                      sleepDuration = "7h 20m"
+                  )
+                  Spacer(modifier = Modifier.width(30.dp))
+                  HRVWidget(
+                      data = listOf(65f,68f,70f,50f,63f,83f)
+                  )
+              }
           } else {
+
+
+
               allTabs.keys.forEach {
                   textId ->
                   MainScreenTab(
                       text = stringResource(textId),
                       imgId = allTabs[textId]!!,
                       onClick = {
-                          if(textId != R.string.nutrition_tab) {
+                          if(textId != R.string.nutrition_tab && textId != R.string.sleep_tab) {
                               Toast.makeText(context, section_under_development, Toast.LENGTH_SHORT).show()
                           } else {
                               currentTab = textId
