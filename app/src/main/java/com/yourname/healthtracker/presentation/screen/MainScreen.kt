@@ -46,6 +46,7 @@ import com.yourname.healthtracker.presentation.components.HRVWidget
 import com.yourname.healthtracker.presentation.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.presentation.components.MainScreenTab
 import com.yourname.healthtracker.presentation.components.MenuTitle
+import com.yourname.healthtracker.presentation.components.MorningCheckIn
 import com.yourname.healthtracker.presentation.components.NutritionCard
 import com.yourname.healthtracker.presentation.components.SearchBar
 import com.yourname.healthtracker.presentation.components.SleepWindowWidget
@@ -262,6 +263,8 @@ fun MainScreen(
                       data = listOf(65f,68f,70f,50f,63f,83f)
                   )
               }
+              Spacer(modifier = Modifier.height(10.dp))
+              MorningCheckIn()
           } else {
 
 
