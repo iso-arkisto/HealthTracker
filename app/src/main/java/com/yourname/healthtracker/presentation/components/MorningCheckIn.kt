@@ -82,8 +82,8 @@ fun MorningCheckIn() {
 //                            )
 //                        }
 //                    }
-                    LazyRow(modifier = Modifier.fillMaxWidth(   )) {
-                        items(emojis) { emoji ->
+                    FlowRow(modifier = Modifier.fillMaxWidth(   )) {
+                        emojis.forEach { emoji ->
                             MoodIcon(
                                 emoji = emoji,
                                 isSelected = selectedMood == emojis.indexOf(emoji),

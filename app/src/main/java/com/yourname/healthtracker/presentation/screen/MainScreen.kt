@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,6 +47,7 @@ import com.yourname.healthtracker.presentation.components.CircadianRing
 import com.yourname.healthtracker.presentation.components.HRVWidget
 import com.yourname.healthtracker.presentation.viewmodel.ProfileViewModel
 import com.yourname.healthtracker.presentation.components.MainScreenTab
+import com.yourname.healthtracker.presentation.components.MenuTab
 import com.yourname.healthtracker.presentation.components.MenuTitle
 import com.yourname.healthtracker.presentation.components.MorningCheckIn
 import com.yourname.healthtracker.presentation.components.NutritionCard
@@ -82,7 +85,7 @@ fun MainScreen(
     )
 
     var currentTab by remember {
-        mutableIntStateOf(R.string.food)
+        mutableIntStateOf(0)
     }
 
 
@@ -100,11 +103,19 @@ fun MainScreen(
         servingSize.value = foodVM.foodAddValue.toString()
     }
 
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        if(currentTab!=0) {
+            MenuTitle(
+                title = stringResource(currentTab),
+                onReturnClick = { currentTab = 0 }
+            )
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -247,24 +258,31 @@ fun MainScreen(
                   }
               }
           } else if(currentTab == R.string.sleep_tab) {
-              Spacer(modifier = Modifier.height(50.dp))
-              CircadianRing()
-              Row(
-                  modifier = Modifier.fillMaxWidth(),
-                  horizontalArrangement = Arrangement.Center
+              Column(
+                  modifier = Modifier
+                      .fillMaxSize()
+                      .verticalScroll(scrollState),
+                  horizontalAlignment = Alignment.CenterHorizontally
               ) {
-                  SleepWindowWidget(
-                      wakeUpTime = "6:20",
-                      bedTime = "23:20",
-                      sleepDuration = "7h 20m"
-                  )
-                  Spacer(modifier = Modifier.width(30.dp))
-                  HRVWidget(
-                      data = listOf(65f,68f,70f,50f,63f,83f)
-                  )
+                  Spacer(modifier = Modifier.height(50.dp))
+                  CircadianRing()
+                  Row(
+                      modifier = Modifier.fillMaxWidth(),
+                      horizontalArrangement = Arrangement.Center
+                  ) {
+                      SleepWindowWidget(
+                          wakeUpTime = "6:20",
+                          bedTime = "23:20",
+                          sleepDuration = "7h 20m"
+                      )
+                      Spacer(modifier = Modifier.width(30.dp))
+                      HRVWidget(
+                          data = listOf(65f,68f,70f,50f,63f,83f)
+                      )
+                  }
+                  Spacer(modifier = Modifier.height(10.dp))
+                  MorningCheckIn()
               }
-              Spacer(modifier = Modifier.height(10.dp))
-              MorningCheckIn()
           } else {
 
 
