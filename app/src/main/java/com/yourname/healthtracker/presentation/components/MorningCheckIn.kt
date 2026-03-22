@@ -39,7 +39,7 @@ fun MorningCheckIn() {
     var selectedMood by remember { mutableIntStateOf(2) }
     val tags = listOf("Late Meal", "Caffeine", "Alcohol", "Blue Light", "Screens < 1h")
     val emojis = listOf("☹️", "🙁", "😐", "🙂", "😁")
-
+    //
 
     Card(
         modifier = Modifier
